@@ -1,8 +1,20 @@
+/**
+ * LPW.getProperties options parser
+ * @param helper
+ * @param logger
+ * @constructor
+ * @since 1.0.0
+ */
 function OptionsParser(helper, logger){
   this.helper = helper;
   this.logger = logger;
 }
 
+/**
+ * Parses and removes {null|undefined} values from options hash
+ * @param {object} options
+ * @since 1.0.0
+ */
 OptionsParser.prototype.getParsedOptions = function(options){
   var $this         = this,
       parsedOptions = {
@@ -36,6 +48,12 @@ OptionsParser.prototype.getParsedOptions = function(options){
   return this.helper.cleanObject(parsedOptions);
 };
 
+/**
+ * Serializes options hash
+ * @param {object} options
+ * @returns {string}
+ * @since 1.0.0
+ */
 OptionsParser.prototype.getSerializedOptions = function(options){
   var paramsString = '';
   options = this.getParsedOptions(options);
@@ -65,6 +83,13 @@ OptionsParser.prototype.getSerializedOptions = function(options){
   return paramsString;
 };
 
+/**
+ * Parses and validates options.locationPoint
+ * @param {object} locationPoint
+ * @returns {null|Object}
+ * @private
+ * @since 1.0.0
+ */
 OptionsParser.prototype._getParsedLocationPoint = function(locationPoint){
   if(!this.helper.isObject(locationPoint)){
     this.logger.log('locationPoint is not an Object');
@@ -84,6 +109,13 @@ OptionsParser.prototype._getParsedLocationPoint = function(locationPoint){
                                  });
 };
 
+/**
+ * Parses and validates options.locationShape
+ * @param {object} locationShape
+ * @returns {null|object}
+ * @private
+ * @since 1.0.0
+ */
 OptionsParser.prototype._getParsedLocationShape = function(locationShape){
   if(!this.helper.isObject(locationShape)){
     this.logger.log('locationShape is not an Object');
@@ -109,6 +141,13 @@ OptionsParser.prototype._getParsedLocationShape = function(locationShape){
                                  });
 };
 
+/**
+ * Parses and validates options.area
+ * @param {object} areaHash
+ * @returns {null|object}
+ * @private
+ * @since 1.0.0
+ */
 OptionsParser.prototype._getParsedArea = function(areaHash){
   if(!this.helper.isObject(areaHash)){
     this.logger.log('getProperties options: options.area is not an Object');
@@ -123,6 +162,14 @@ OptionsParser.prototype._getParsedArea = function(areaHash){
   return areaHash;
 };
 
+/**
+ * Parses and validates options.price
+ * @param {object} priceHash
+ * @param {boolean} isRent
+ * @returns {null|object}
+ * @private
+ * @since 1.0.0
+ */
 OptionsParser.prototype._getParsedPrice = function(priceHash, isRent){
   isRent = isRent || false;
   if(!this.helper.isObject(priceHash)){
@@ -147,6 +194,3 @@ OptionsParser.prototype._getParsedPrice = function(priceHash, isRent){
 
   return priceHash;
 };
-
-//https://www.leadingproperties.com/property_objects?area%5Bmax%5D=100&area%5Bmin%5D=50&for_rent=true&for_sale=false&long_rent=false&page=1&per_page=12&rooms%5B%5D=1&rooms%5B%5D=2&short_rent=false
-//https://www.leadingproperties.com/property_objects?area[max]=100&area[min]=50&for_rent=true&for_sale=false&long_rent=false&page=1&per_page=12&rooms[]=1&rooms[]=2&short_rent=false
