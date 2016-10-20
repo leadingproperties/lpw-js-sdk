@@ -1,8 +1,23 @@
+/**
+ * Public API connector
+ * @param {string} token
+ * @constructor
+ *
+ * @since 1.0.0
+ */
 function Connector(token){
   this.token = token;
   this.apiPath = 'https://lpw-public-api.herokuapp.com'
 }
 
+/**
+ * Sends request to propertyObjects controller with different options
+ * @param {object} options
+ * @param {function} onLoadCallback
+ * @param {function} onErrorCallback
+ *
+ * @since 1.0.0
+ */
 Connector.prototype.getProperties = function(options, onLoadCallback, onErrorCallback){
   var url     = this.apiPath + '/property_objects',
       request = new XMLHttpRequest();
@@ -18,6 +33,14 @@ Connector.prototype.getProperties = function(options, onLoadCallback, onErrorCal
   request.send(null);
 };
 
+/**
+ * Sends request to propertyObjects controller only with id parameter
+ * @param {number} id
+ * @param {function} onLoadCallback
+ * @param {function} onErrorCallback
+ *
+ * @since 1.0.0
+ */
 Connector.prototype.getPropertyById = function(id, onLoadCallback, onErrorCallback){
   var url     = this.apiPath + '/property_objects/?id=' + id,
       request = new XMLHttpRequest();
