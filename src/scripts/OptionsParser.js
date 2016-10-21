@@ -96,14 +96,14 @@ OptionsParser.prototype._getParsedLocationPoint = function(locationPoint){
     return null;
   }
 
-  if(!(locationPoint.hasOwnProperty('lat') && locationPoint.hasOwnProperty('lon'))){
-    this.logger.log('Missing required parameters for locationPoint: lat or lon');
+  if(!(locationPoint.hasOwnProperty('lat') && locationPoint.hasOwnProperty('lng'))){
+    this.logger.log('Missing required parameters for locationPoint: lat or lng');
     return null;
   }
 
   return this.helper.cleanObject({
                                    lat         : locationPoint.lat,
-                                   lon         : locationPoint.lon,
+                                   lon         : locationPoint.lng,
                                    radius      : locationPoint.radius,
                                    country_code: locationPoint.countryCode
                                  });
@@ -123,20 +123,26 @@ OptionsParser.prototype._getParsedLocationShape = function(locationShape){
   }
 
   if(!(locationShape.hasOwnProperty('topRight') && this.helper.isObject(locationShape.topRight) &&
-    locationShape.topRight.hasOwnProperty('lat') && locationShape.topRight.hasOwnProperty('lon'))){
+    locationShape.topRight.hasOwnProperty('lat') && locationShape.topRight.hasOwnProperty('lng'))){
     this.logger.log('Invalid value of locationShape.topRight');
     return null;
   }
 
   if(!(locationShape.hasOwnProperty('bottomLeft') && this.helper.isObject(locationShape.bottomLeft)
-    && locationShape.bottomLeft.hasOwnProperty('lat') && locationShape.bottomLeft.hasOwnProperty('lon'))){
+    && locationShape.bottomLeft.hasOwnProperty('lat') && locationShape.bottomLeft.hasOwnProperty('lng'))){
     this.logger.log('Invalid value of locationShape.bottomLeft');
     return null;
   }
 
   return this.helper.cleanObject({
-                                   top_right   : locationShape.topRight,
-                                   bottom_left : locationShape.bottomLeft,
+                                   top_right   : {
+                                     lat: locationShape.topRight.lat,
+                                     lon: locationShape.topRight.lng
+                                   },
+                                   bottom_left : {
+                                     lat: locationShape.bottomLeft.lat,
+                                     lon: locationShape.bottomLeft.lng
+                                   },
                                    country_code: locationShape.countryCode
                                  });
 };

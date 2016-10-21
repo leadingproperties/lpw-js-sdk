@@ -16,18 +16,18 @@ describe('OptionsParser class', function(){
         orderBy: 'desc',
         locationPoint: {
           lat: 55.378051,
-          lon: -3.435973,
+          lng: -3.435973,
           radius: 3,
           countryCode: 'GB'
         },
         locationShape: {
           topRight: {
             lat: 60.856553,
-            lon: 1.7627096
+            lng: 1.7627096
           },
           bottomLeft: {
             lat: 49.8669688,
-            lon: -8.6493571999999
+            lng: -8.6493571999999
           },
           countryCode: 'GB'
         },
@@ -114,7 +114,7 @@ describe('OptionsParser class', function(){
         argCase2 = 'some string',
         argCase3 = {
           lat        : 46.111,
-          lon        : 10.123,
+          lng        : 10.123,
           countryCode: 'GB'
         },
         ansCase3 = {
@@ -138,7 +138,7 @@ describe('OptionsParser class', function(){
           answer = optionsParser._getParsedLocationPoint(argCase1);
       should.equal(answer, null);
       myLog.calledOnce.should.be.true;
-      myLog.firstCall.calledWith('Missing required parameters for locationPoint: lat or lon').should.be.true;
+      myLog.firstCall.calledWith('Missing required parameters for locationPoint: lat or lng').should.be.true;
       console.log.restore();
     });
 
@@ -167,13 +167,13 @@ describe('OptionsParser class', function(){
         argCase2 = {
           topRight: {
             lat: 0.0,
-            lon: 0.0
+            lng: 0.0
           }
         },
         argCase3 = {
           bottomLeft: {
             lat: 0.0,
-            lon: 0.0
+            lng: 0.0
           }
         };
 
