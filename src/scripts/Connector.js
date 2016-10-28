@@ -18,7 +18,7 @@ function Connector(token){
  *
  * @since 1.0.0
  */
-Connector.prototype.getProperties = function(options, onLoadCallback, onErrorCallback){
+Connector.prototype.readProperties = function(options, onLoadCallback, onErrorCallback){
   var url     = this.apiPath + '/property_objects',
       request = new XMLHttpRequest();
 
@@ -41,7 +41,7 @@ Connector.prototype.getProperties = function(options, onLoadCallback, onErrorCal
  *
  * @since 1.0.0
  */
-Connector.prototype.getPropertyById = function(id, onLoadCallback, onErrorCallback){
+Connector.prototype.readPropertyById = function(id, onLoadCallback, onErrorCallback){
   var url     = this.apiPath + '/property_objects/?id=' + id,
       request = new XMLHttpRequest();
 
