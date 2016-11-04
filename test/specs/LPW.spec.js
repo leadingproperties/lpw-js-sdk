@@ -46,7 +46,8 @@ describe('LPW class', function(){
   });
 
   describe('#getPropertyById()', function(){
-    var lpw;
+    var lpw,
+        propertyId = 70979;
 
     beforeEach(function(){
       lpw = new LPW('etd4xUyDUMsa47sQBwNB');
@@ -56,9 +57,37 @@ describe('LPW class', function(){
       should.exist(lpw.getPropertyById);
     });
 
-    // it('should return false for code 401', function(){
-    //   helper.isSuccessHTTPStatus(401).should.equal(false);
-    // });
-
+    it('should accept id and callback and call it with structured data', function(done){
+      lpw.getPropertyById(70979, function(answer){
+        answer.data.should.exist;
+        answer.status.should.exist;
+        answer.statusText.should.exist;
+        answer.data.property_objects.length.should.be.equal(1);
+        answer.data.property_objects[0].id.should.be.equal(propertyId);
+        done();
+      });
+    });
   });
+
+  describe('#getCurrencies()', function(){
+    var lpw;
+
+    beforeEach(function(){
+      lpw = new LPW('etd4xUyDUMsa47sQBwNB');
+    });
+
+    it('should exist', function(){
+      should.exist(lpw.getCurrencies);
+    });
+
+    it('should accept callback and call it with structured data', function(done){
+      lpw.getCurrencies(function(answer){
+        answer.data.should.exist;
+        answer.status.should.exist;
+        answer.statusText.should.exist;
+        answer.data.currencies.should.exist;
+        done();
+      });
+    });
+  })
 });

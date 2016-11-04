@@ -33,8 +33,7 @@ LPW.prototype.getProperties = function(options, userCallback){
 
   this.connector.readProperties(
     this.optionsParser.getSerializedOptions(options),
-    this.getPropertiesSuccess.bind(this, userCallback),
-    this.getPropertiesError.bind(this, userCallback)
+    this.defaultCallback.bind(this, userCallback)
   );
 };
 
@@ -60,8 +59,19 @@ LPW.prototype.getPropertyById = function(id, userCallback){
 
   this.connector.readPropertyById(
     id,
-    this.getPropertyByIdSuccess.bind(this, userCallback),
-    this.getPropertiesError.bind(this, userCallback)
+    this.defaultCallback.bind(this, userCallback)
+  );
+};
+
+/**
+ * Gets list of available currencies
+ * @param {userCallback} userCallback
+ *
+ * @since 1.0.0
+ */
+LPW.prototype.getCurrencies = function(userCallback){
+  this.connector.readCurrencies(
+    this.defaultCallback.bind(this, userCallback)
   );
 };
 
@@ -69,32 +79,13 @@ LPW.prototype.getPropertyById = function(id, userCallback){
 // Callbacks
 //----------------------------------------------------------------------------------------
 /**
- * Parses successful answer and calls user callback
+ * Calls user callback with request response as argument
  * @param {userCallback} userCallback
- * @param XMLHttpRequest
+ * @param {object} XMLHttpRequest
+ *
+ * @since 1.0.0
  */
-LPW.prototype.getPropertiesSuccess = function(userCallback, XMLHttpRequest){
-  var data   = this.helper.isSuccessHTTPStatus(XMLHttpRequest.status) ? JSON.parse(XMLHttpRequest.response) : null,
-      answer = this.helper.getTransformedResponse(data, XMLHttpRequest);
-  userCallback(answer);
-};
-
-/**
- * Parses unsuccessful answer and calls user callback
- * @param {userCallback} userCallback
- * @param XMLHttpRequest
- */
-LPW.prototype.getPropertiesError = function(userCallback, XMLHttpRequest){
-  userCallback(this.helper.getTransformedResponse(null, XMLHttpRequest));
-};
-
-/**
- * Parses successful answer and calls user callback
- * @param {userCallback} userCallback
- * @param XMLHttpRequest
- */
-LPW.prototype.getPropertyByIdSuccess = function(userCallback, XMLHttpRequest){
-  console.debug(XMLHttpRequest);
+LPW.prototype.defaultCallback = function(userCallback, XMLHttpRequest){
   var data   = this.helper.isSuccessHTTPStatus(XMLHttpRequest.status) ? JSON.parse(XMLHttpRequest.response) : null,
       answer = this.helper.getTransformedResponse(data, XMLHttpRequest);
   userCallback(answer);
@@ -190,5 +181,5 @@ window.LPW = LPW;
 
 
 /**
- * TODO: build getCurrencies method, build getLocalesMethod
+ * TODO: build build getLocalesMethod
  */
