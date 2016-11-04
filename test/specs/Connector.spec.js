@@ -1,4 +1,6 @@
 describe('Connector class', function(){
+  var apiPath = 'https://lpw-public-api.herokuapp.com';
+
   describe('#readPropertyById()', function(){
     var connector,
         // server,
@@ -132,6 +134,67 @@ describe('Connector class', function(){
           done();
         };
         connector.readProperties(options, myCallback, function(){});
+      });
+    })
+  });
+
+  describe('#readCurrencies()', function(){
+    var connector,
+        xhr,
+        requests,
+        fakeResponseBody = {
+          currencies: []
+        };
+
+
+    beforeEach(function(){
+      connector = new Connector('etd4xUyDUMsa47sQBwNB');
+    });
+
+    it('should exist', function(){
+      should.exist(connector.readCurrencies);
+    });
+
+    describe('isolated', function(){
+      beforeEach(function(){
+        xhr = sinon.useFakeXMLHttpRequest();
+        requests = [];
+        xhr.onCreate = function(req){ requests.push(req); };
+      });
+
+      afterEach(function(){
+        xhr.restore();
+      });
+
+      it('should make GET request to /currencies and return XMLHttpRequest with response', function(){
+        var callback = sinon.spy();
+        connector.readCurrencies(callback);
+        requests[0].respond(
+          200,
+          {"Content-Type": "application/json"},
+          JSON.stringify(fakeResponseBody)
+        );
+        callback.calledOnce.should.be.true;
+        callback.args.length.should.be.equal(1);
+        callback.args[0][0].responseText.should.be.eql(JSON.stringify(fakeResponseBody));
+        callback.args[0][0].method.should.be.equal('GET');
+        callback.args[0][0].url.should.be.equal(apiPath + '/currencies');
+      });
+    });
+
+    describe('live', function(){
+      it('should make request and call userCallback with answer as first argument', function(done){
+        this.timeout(3000);
+        var myCallback = function(request){
+          console.log(request);
+          var response = JSON.parse(request.response);
+          request.should.exist;
+          request.status.should.be.equal(200);
+          response.should.have.ownProperty('currencies');
+          response.currencies.length.should.be.above(0);
+          done();
+        };
+        connector.readCurrencies(myCallback);
       });
     })
   })

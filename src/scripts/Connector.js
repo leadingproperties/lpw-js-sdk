@@ -13,41 +13,57 @@ function Connector(token){
 /**
  * Sends request to propertyObjects controller with different options
  * @param {object} options
- * @param {function} onLoadCallback
- * @param {function} onErrorCallback
+ * @param {function} lpwCallback
  *
  * @since 1.0.0
  */
-Connector.prototype.readProperties = function(options, onLoadCallback, onErrorCallback){
-  var url     = this.apiPath + '/property_objects',
-      request = new XMLHttpRequest();
+Connector.prototype.readProperties = function(options, lpwCallback){
+  var url     = this.apiPath + '/property_objects';
 
   if(typeof options === 'string' && options.length > 0){
     url = url + '?' + options
   }
 
-  request.open('GET', url, true);
-  request.setRequestHeader('Authorization', 'Token token=' + this.token);
-  request.onload = onLoadCallback.bind(this, request);
-  request.onerror = onErrorCallback.bind(this, request);
-  request.send(null);
+  this._defaultRequest(url, 'GET', lpwCallback);
 };
 
 /**
  * Sends request to propertyObjects controller only with id parameter
- * @param {number} id
- * @param {function} onLoadCallback
- * @param {function} onErrorCallback
+ * @param {number} id - property id
+ * @param {function} lpwCallback
  *
  * @since 1.0.0
  */
-Connector.prototype.readPropertyById = function(id, onLoadCallback, onErrorCallback){
-  var url     = this.apiPath + '/property_objects/?id=' + id,
-      request = new XMLHttpRequest();
+Connector.prototype.readPropertyById = function(id, lpwCallback){
+  this._defaultRequest(this.apiPath + '/property_objects/?id=' + id, 'GET', lpwCallback);
+};
 
-  request.open('GET', url, true);
+/**
+ * Sends request to currencies controller
+ * @param {function} lpwCallback
+ *
+ * @since 1.0.0
+ */
+Connector.prototype.readCurrencies = function(lpwCallback){
+  this._defaultRequest(this.apiPath + '/currencies', 'GET', lpwCallback);
+};
+
+/**
+ * Default requester
+ * @param {String} url - request url
+ * @param {String} method - HTTP ('GET', 'POST', etc.) method
+ * @param lpwCallback - lpw instance callback
+ * @private
+ *
+ * @since 1.0.0
+ */
+Connector.prototype._defaultRequest = function(url, method, lpwCallback){
+  var request = new XMLHttpRequest();
+  method = method || 'GET';
+
+  request.open(method, url, true);
   request.setRequestHeader('Authorization', 'Token token=' + this.token);
-  request.onload = onLoadCallback.bind(this, request);
-  request.onerror = onErrorCallback.bind(this, request);
+  request.onload = lpwCallback.bind(this, request);
+  request.onerror = lpwCallback.bind(this, request);
   request.send(null);
 };
