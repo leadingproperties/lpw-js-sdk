@@ -2,12 +2,10 @@ describe('OptionsParser class', function(){
   var optionsCase1 = {},
       optionsCase2 = {
         forSale: true,
-        forRent: true,
-        search: 'Property'
+        forRent: true
       },
       optionsCase3 = {
         id: 123,
-        search: 'Property',
         locale: 'ru',
         page: 2,
         perPage: 6,
@@ -60,7 +58,6 @@ describe('OptionsParser class', function(){
       },
       answerCase3 = {
         id: 123,
-        search: 'Property',
         locale: 'ru',
         page: 2,
         per_page: 6,
@@ -378,10 +375,9 @@ describe('OptionsParser class', function(){
     it('should serialize number,string,boolean as &key=value', function(){
       var arg = {
             page   : 1,
-            forSale: true,
-            search : 'Some search query'
+            forSale: true
           },
-          ans = 'search=Some search query&locale=en&page=1&per_page=10&for_sale=true&for_rent=false';
+          ans = 'locale=en&page=1&per_page=10&for_sale=true&for_rent=false';
       optionsParser.getSerializedOptions(arg).should.be.equal(ans);
     });
 

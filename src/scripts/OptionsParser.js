@@ -19,7 +19,6 @@ OptionsParser.prototype.getParsedOptions = function(options){
   var $this         = this,
       parsedOptions = {
         id            : options.id || null,
-        search        : options.search || null,
         locale        : options.locale || 'en',
         page          : options.page || 1,
         per_page      : options.perPage || 10,
