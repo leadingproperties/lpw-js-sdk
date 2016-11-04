@@ -1,5 +1,5 @@
 function Logger(enabled){
-  this.enabled = enabled;
+  this.enabled = enabled || false;
 }
 
 Logger.prototype.log = function(string){
