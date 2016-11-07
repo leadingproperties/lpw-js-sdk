@@ -1,15 +1,18 @@
 /**
  * Main LPW class
  * @param {string} token - API user token
- * @param {boolean} debugEnabled - enable/disable errors logging
+ * @param {constructorOptions} options - configuration data
  * @constructor
  *
  * @since 1.0.0
  */
-function LPW(token, debugEnabled){
+function LPW(token, options){
+  this.locale = (options && options.locale) || 'en';
+  this.debugEnabled = (options && options.debugEnabled) || false;
+
   this.connector = new Connector(token);
   this.helper = new Helper();
-  this.logger = new Logger(debugEnabled);
+  this.logger = new Logger(this.debugEnabled);
   this.optionsParser = new OptionsParser(this.helper, this.logger);
 }
 
@@ -26,9 +29,8 @@ LPW.prototype.getProperties = function(options, userCallback){
     return;
   }
 
-  if(typeof options === 'function'){
-    userCallback = options;
-    options = {};
+  if(!options.locale){
+    options.locale = this.locale;
   }
 
   this.connector.readProperties(
@@ -111,6 +113,12 @@ window.LPW = LPW;
  */
 
 /**
+ * @typedef {object} constructorOptions
+ * @property {string} locale - default locale
+ * @property {boolean} debugEnabled - enable/disable errors logging
+ */
+
+/**
  * @typedef {object} locationPoint
  * @property {number} lat - latitude
  * @property {number} lng - longitude
@@ -181,5 +189,5 @@ window.LPW = LPW;
 
 
 /**
- * TODO: build build getLocalesMethod
+ * TODO: refactor getPropertyById to accept locale, ability to set locale globally
  */
