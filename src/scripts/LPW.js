@@ -42,11 +42,12 @@ LPW.prototype.getProperties = function(options, userCallback){
 /**
  * Gets single property by ID
  * @param {number} id - property id
+ * @param {getPropertyByIdOptions} options - config data (see getPropertyByIdOptions typedef)
  * @param {userCallback} userCallback
  *
  * @since 1.0.0
  */
-LPW.prototype.getPropertyById = function(id, userCallback){
+LPW.prototype.getPropertyById = function(id, options, userCallback){
   id = parseInt(id, 10);
 
   if(typeof userCallback !== 'function'){
@@ -116,6 +117,13 @@ window.LPW = LPW;
  * @typedef {object} constructorOptions
  * @property {string} locale - default locale
  * @property {boolean} debugEnabled - enable/disable errors logging
+ */
+
+/**
+ * @typedef {object} getPropertyByIdOptions
+ * @property {string} locale - locale
+ * @property {boolean} forSale - show property data for sale
+ * @property {boolean} forRent - show property data for rent
  */
 
 /**
@@ -189,5 +197,5 @@ window.LPW = LPW;
 
 
 /**
- * TODO: refactor getPropertyById to accept locale, ability to set locale globally
+ * TODO: ability to set locale globally
  */

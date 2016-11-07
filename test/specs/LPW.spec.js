@@ -3,7 +3,7 @@ describe('LPW class', function(){
     var lpw;
 
     beforeEach(function(){
-      lpw = new LPW('etd4xUyDUMsa47sQBwNB', true);
+      lpw = new LPW('etd4xUyDUMsa47sQBwNB', {debugEnabled: true});
     });
 
     it('should exist', function(){
@@ -58,7 +58,7 @@ describe('LPW class', function(){
     });
 
     it('should accept id and callback and call it with structured data', function(done){
-      lpw.getPropertyById(70979, function(answer){
+      lpw.getPropertyById(70979, {}, function(answer){
         answer.data.should.exist;
         answer.status.should.exist;
         answer.statusText.should.exist;
