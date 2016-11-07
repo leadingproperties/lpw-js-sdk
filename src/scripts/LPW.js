@@ -60,8 +60,13 @@ LPW.prototype.getPropertyById = function(id, options, userCallback){
     return;
   }
 
+  if(!options.locale){
+    options.locale = this.locale;
+  }
+
   this.connector.readPropertyById(
     id,
+    options.locale,
     this.defaultCallback.bind(this, userCallback)
   );
 };

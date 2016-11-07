@@ -30,12 +30,13 @@ Connector.prototype.readProperties = function(options, lpwCallback){
 /**
  * Sends request to propertyObjects controller only with id parameter
  * @param {number} id - property id
+ * @param {string} locale - locale
  * @param {function} lpwCallback
  *
  * @since 1.0.0
  */
-Connector.prototype.readPropertyById = function(id, lpwCallback){
-  this._defaultRequest(this.apiPath + '/property_objects/?id=' + id, 'GET', lpwCallback);
+Connector.prototype.readPropertyById = function(id, locale, lpwCallback){
+  this._defaultRequest(this.apiPath + '/property_objects/?id=' + id + '&locale=' + locale, 'GET', lpwCallback);
 };
 
 /**

@@ -39,7 +39,7 @@ describe('Connector class', function(){
 
       it('should make request and return XMLHttpRequest with response', function(){
         var callback = sinon.spy();
-        connector.readPropertyById(singlePropId, callback, function(){});
+        connector.readPropertyById(singlePropId, 'en', callback);
         requests[0].respond(
           200,
           {"Content-Type": "application/json"},
@@ -62,7 +62,7 @@ describe('Connector class', function(){
           response.property_objects[0].id.should.be.equal(singlePropId);
           done();
         };
-        connector.readPropertyById(singlePropId, myCallback, function(){});
+        connector.readPropertyById(singlePropId, 'en', myCallback);
       });
     });
   });
