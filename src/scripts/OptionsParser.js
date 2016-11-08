@@ -197,5 +197,5 @@ OptionsParser.prototype._getParsedPrice = function(priceHash, isRent){
     return null;
   }
 
-  return priceHash;
+  return this.helper.cleanObject(priceHash);
 };
