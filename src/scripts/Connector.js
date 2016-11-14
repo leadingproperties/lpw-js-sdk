@@ -37,7 +37,7 @@ Connector.prototype.readProperties = function(options, lpwCallback){
  * @since 1.0.0
  */
 Connector.prototype.readPropertyById = function(id, locale, lpwCallback){
-  this._defaultRequest(this.apiPath + '/property_objects/' + id, 'GET', {'Accept-Language': locale}, lpwCallback);
+  this._defaultRequest(this.apiPath + '/property_objects/' + id + '?locale=' + locale, 'GET', null, lpwCallback);
 };
 
 /**
