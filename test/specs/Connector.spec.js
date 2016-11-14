@@ -1,5 +1,6 @@
 describe('Connector class', function(){
-  var apiPath = 'https://lpw-public-api.herokuapp.com';
+  // var apiPath = 'https://lpw-public-api.herokuapp.com';
+  var apiPath = 'https://staging-lpw-public-api.herokuapp.com';
 
   describe('#readPropertyById()', function(){
     var connector,
@@ -9,13 +10,9 @@ describe('Connector class', function(){
         singlePropId = 70979;
 
     var fakeResponseBody = {
-      property_objects: [
-        {
-          id  : singlePropId,
-          code: 'US-70979',
-          slug: 'us-70979-apartments-for-sale-in-fendi-chateau-residences-near-miami-beach'
-        }
-      ]
+      id  : singlePropId,
+      code: 'US-70979',
+      slug: 'us-70979-apartments-for-sale-in-fendi-chateau-residences-near-miami-beach'
     };
 
     beforeEach(function(){
@@ -57,9 +54,9 @@ describe('Connector class', function(){
           var response = JSON.parse(request.response);
           request.should.exist;
           request.status.should.be.equal(200);
-          response.should.have.ownProperty('property_objects');
-          response.property_objects.length.should.be.equal(1);
-          response.property_objects[0].id.should.be.equal(singlePropId);
+          response.should.have.ownProperty('id');
+          response.should.have.ownProperty('code');
+          response.id.should.be.equal(singlePropId);
           done();
         };
         connector.readPropertyById(singlePropId, 'en', myCallback);

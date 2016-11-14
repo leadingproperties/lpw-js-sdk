@@ -7,7 +7,8 @@
  */
 function Connector(token){
   this.token = token;
-  this.apiPath = 'https://lpw-public-api.herokuapp.com'
+  // this.apiPath = 'https://lpw-public-api.herokuapp.com';
+  this.apiPath = 'https://staging-lpw-public-api.herokuapp.com';
 }
 
 /**
@@ -24,7 +25,7 @@ Connector.prototype.readProperties = function(options, lpwCallback){
     url = url + '?' + options
   }
 
-  this._defaultRequest(url, 'GET', lpwCallback);
+  this._defaultRequest(url, 'GET', null, lpwCallback);
 };
 
 /**
@@ -36,7 +37,7 @@ Connector.prototype.readProperties = function(options, lpwCallback){
  * @since 1.0.0
  */
 Connector.prototype.readPropertyById = function(id, locale, lpwCallback){
-  this._defaultRequest(this.apiPath + '/property_objects/?id=' + id + '&locale=' + locale, 'GET', lpwCallback);
+  this._defaultRequest(this.apiPath + '/property_objects/' + id, 'GET', {'Accept-Language': locale}, lpwCallback);
 };
 
 /**
@@ -46,24 +47,30 @@ Connector.prototype.readPropertyById = function(id, locale, lpwCallback){
  * @since 1.0.0
  */
 Connector.prototype.readCurrencies = function(lpwCallback){
-  this._defaultRequest(this.apiPath + '/currencies', 'GET', lpwCallback);
+  this._defaultRequest(this.apiPath + '/currencies', 'GET', null, lpwCallback);
 };
 
 /**
  * Default requester
  * @param {String} url - request url
  * @param {String} method - HTTP ('GET', 'POST', etc.) method
+ * @param {Object} headers - HTTP headers
  * @param lpwCallback - lpw instance callback
  * @private
  *
  * @since 1.0.0
  */
-Connector.prototype._defaultRequest = function(url, method, lpwCallback){
+Connector.prototype._defaultRequest = function(url, method, headers, lpwCallback){
   var request = new XMLHttpRequest();
   method = method || 'GET';
 
   request.open(method, url, true);
   request.setRequestHeader('Authorization', 'Token token=' + this.token);
+  if(headers){
+    for(var prop in headers){
+      request.setRequestHeader(prop, headers[prop]);
+    }
+  }
   request.onload = lpwCallback.bind(this, request);
   request.onerror = lpwCallback.bind(this, request);
   request.send(null);
