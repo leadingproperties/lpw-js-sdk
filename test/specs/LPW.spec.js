@@ -62,8 +62,8 @@ describe('LPW class', function(){
         answer.data.should.exist;
         answer.status.should.exist;
         answer.statusText.should.exist;
-        answer.data.property_objects.length.should.be.equal(1);
-        answer.data.property_objects[0].id.should.be.equal(propertyId);
+        answer.should.be.an('object');
+        answer.data.id.should.be.equal(propertyId);
         done();
       });
     });
