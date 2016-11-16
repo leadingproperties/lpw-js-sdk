@@ -2,15 +2,18 @@ var gulp = require('gulp');
 var concat = require('gulp-concat');
 var sourcemaps = require('gulp-sourcemaps');
 var del = require('del');
-var browserSync  = require('browser-sync').create();
 var iife  = require('gulp-iife');
+var uglify = require('gulp-uglify');
+var gulpSequence = require('gulp-sequence');
+var rename = require("gulp-rename");
 
 var paths = {
-  scripts: ['src/scripts/*.js']
+  scripts: ['src/scripts/*.js'],
+  dist: ['dist/']
 };
 
 gulp.task('clean', function() {
-  return del(['build']);
+  return del(['dist']);
 });
 
 gulp.task('scripts', ['clean'], function() {
@@ -25,17 +28,17 @@ gulp.task('scripts', ['clean'], function() {
     .pipe(gulp.dest("dist"));
 });
 
+gulp.task('uglify', function() {
+  return gulp.src(paths.dist + 'sdk.js')
+    .pipe(rename("sdk.min.js"))
+    .pipe(uglify())
+    .pipe(gulp.dest("dist"));
+});
+
 gulp.task('watch', function() {
   gulp.watch(paths.scripts, ['scripts']);
 });
 
-// gulp.task('watch', function() {
-//   browserSync.init({
-//                      proxy: config.devUrl,
-//                      port: 8080
-//                    });
-//   gulp.watch([path.source + 'app/assets/styles/**/*'], ['styles']);
-//   gulp.watch([path.source + 'app/modules/**/*'], ['jshint', 'scripts']);
-//   gulp.watch([path.source + 'app/templates/**/*'], ['templates']);
-// });
-gulp.task('default', ['watch', 'scripts']);
+gulp.task('build', gulpSequence('scripts', 'uglify'));
+
+gulp.task('default', ['build']);
