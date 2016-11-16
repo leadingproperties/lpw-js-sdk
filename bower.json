@@ -1,7 +1,7 @@
 {
   "name": "lpw-js-sdk",
   "description": "LPW Javascript SDK",
-  "main": "index.js",
+  "main": "dist/sdk.js",
   "authors": [
     "vadim-p"
   ],
