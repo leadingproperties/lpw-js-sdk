@@ -89,5 +89,22 @@ describe('LPW class', function(){
         done();
       });
     });
-  })
+  });
+
+  describe('#setLocale()', function(){
+    var lpw;
+
+    beforeEach(function(){
+      lpw = new LPW('etd4xUyDUMsa47sQBwNB');
+    });
+
+    it('should exist', function(){
+      should.exist(lpw.setLocale);
+    });
+
+    it('should set locale', function(){
+      lpw.setLocale('ru');
+      lpw.locale.should.be.equal('ru');
+    });
+  });
 });

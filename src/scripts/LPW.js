@@ -60,6 +60,10 @@ LPW.prototype.getPropertyById = function(id, options, userCallback){
     return;
   }
 
+  if(!options){
+    options = {};
+  }
+
   if(!options.locale){
     options.locale = this.locale;
   }
@@ -81,6 +85,20 @@ LPW.prototype.getCurrencies = function(userCallback){
   this.connector.readCurrencies(
     this.defaultCallback.bind(this, userCallback)
   );
+};
+
+/**
+ * Sets default locale
+ * @param {string} locale - locale string ISO 639-1 (https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes#Partial_ISO_639_table)
+ *
+ * @since 1.0.0
+ */
+LPW.prototype.setLocale = function(locale){
+  if(typeof locale !== 'string'){
+    this.logger.log('setLocale: Locale should be a string');
+    return;
+  }
+  this.locale = locale;
 };
 
 //----------------------------------------------------------------------------------------
@@ -198,9 +216,4 @@ window.LPW = LPW;
 /**
  * A number, or a string containing a number.
  * @typedef {(number|string)} NumberLike
- */
-
-
-/**
- * TODO: ability to set locale globally
  */
