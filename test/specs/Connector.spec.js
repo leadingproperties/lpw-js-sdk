@@ -1,6 +1,6 @@
 describe('Connector class', function(){
-  // var apiPath = 'https://lpw-public-api.herokuapp.com';
-  var apiPath = 'https://staging-lpw-public-api.herokuapp.com';
+  var apiPath = 'https://lpw-public-api.herokuapp.com';
+  // var apiPath = 'https://staging-lpw-public-api.herokuapp.com';
 
   describe('#readPropertyById()', function(){
     var connector,

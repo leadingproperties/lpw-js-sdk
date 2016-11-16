@@ -7,8 +7,7 @@
  */
 function Connector(token){
   this.token = token;
-  // this.apiPath = 'https://lpw-public-api.herokuapp.com';
-  this.apiPath = 'https://staging-lpw-public-api.herokuapp.com';
+  this.apiPath = 'https://lpw-public-api.herokuapp.com';
 }
 
 /**
