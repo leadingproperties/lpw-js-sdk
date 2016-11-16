@@ -1,48 +1,109 @@
 ;(function(window) {
 "use strict";
 
+/**
+ * Public API connector
+ * @param {string} token
+ * @constructor
+ *
+ * @since 1.0.0
+ */
 function Connector(token){
   this.token = token;
-  this.apiPath = 'https://lpw-public-api.herokuapp.com'
+  this.apiPath = 'https://lpw-public-api.herokuapp.com';
 }
 
-Connector.prototype.getProperties = function(options, onLoadCallback, onErrorCallback){
-  var url     = this.apiPath + '/property_objects',
-      request = new XMLHttpRequest();
+/**
+ * Sends request to propertyObjects controller with different options
+ * @param {object} options
+ * @param {function} lpwCallback
+ *
+ * @since 1.0.0
+ */
+Connector.prototype.readProperties = function(options, lpwCallback){
+  var url     = this.apiPath + '/property_objects';
 
   if(typeof options === 'string' && options.length > 0){
     url = url + '?' + options
   }
 
-  request.open('GET', url, true);
-  request.setRequestHeader('Authorization', 'Token token=' + this.token);
-  request.onload = onLoadCallback.bind(this, request);
-  request.onerror = onErrorCallback.bind(this, request);
-  request.send(null);
+  this._defaultRequest(url, 'GET', null, lpwCallback);
 };
 
-Connector.prototype.getPropertyById = function(id, onLoadCallback, onErrorCallback){
-  var url     = this.apiPath + '/property_objects/?id=' + id,
-      request = new XMLHttpRequest();
+/**
+ * Sends request to propertyObjects controller only with id parameter
+ * @param {number} id - property id
+ * @param {string} locale - locale
+ * @param {function} lpwCallback
+ *
+ * @since 1.0.0
+ */
+Connector.prototype.readPropertyById = function(id, locale, lpwCallback){
+  this._defaultRequest(this.apiPath + '/property_objects/' + id + '?locale=' + locale, 'GET', null, lpwCallback);
+};
 
-  request.open('GET', url, true);
+/**
+ * Sends request to currencies controller
+ * @param {function} lpwCallback
+ *
+ * @since 1.0.0
+ */
+Connector.prototype.readCurrencies = function(lpwCallback){
+  this._defaultRequest(this.apiPath + '/currencies', 'GET', null, lpwCallback);
+};
+
+/**
+ * Default requester
+ * @param {String} url - request url
+ * @param {String} method - HTTP ('GET', 'POST', etc.) method
+ * @param {Object} headers - HTTP headers
+ * @param lpwCallback - lpw instance callback
+ * @private
+ *
+ * @since 1.0.0
+ */
+Connector.prototype._defaultRequest = function(url, method, headers, lpwCallback){
+  var request = new XMLHttpRequest();
+  method = method || 'GET';
+
+  request.open(method, url, true);
   request.setRequestHeader('Authorization', 'Token token=' + this.token);
-  request.onload = onLoadCallback.bind(this, request);
-  request.onerror = onErrorCallback.bind(this, request);
+  if(headers){
+    for(var prop in headers){
+      request.setRequestHeader(prop, headers[prop]);
+    }
+  }
+  request.onload = lpwCallback.bind(this, request);
+  request.onerror = lpwCallback.bind(this, request);
   request.send(null);
 };
-function LPWException(message){
-  this.message = message;
-  this.name = "LPW Exception";
-}
+/**
+ * Helper class containing methods called from several places
+ * @constructor
+ */
 function Helper(){
 
 }
 
+/**
+ * Checks if HTTP status is between 200 and 400
+ * @param status
+ * @returns {boolean}
+ *
+ * @since 1.0.0
+ */
 Helper.prototype.isSuccessHTTPStatus = function(status){
   return status >= 200 && status < 400;
 };
 
+/**
+ * Returns structured answer from XMLHttpRequest
+ * @param {*} data
+ * @param {object} XMLHttpRequest
+ * @returns {{data: (*|null), status: number, statusText: string}}
+ *
+ * @since 1.0.0
+ */
 Helper.prototype.getTransformedResponse = function(data, XMLHttpRequest){
   return {
     data      : data || null,
@@ -50,14 +111,36 @@ Helper.prototype.getTransformedResponse = function(data, XMLHttpRequest){
     statusText: XMLHttpRequest ? XMLHttpRequest.statusText : ''
   };
 };
+
+/**
+ * Checks if argument is array
+ * @param any
+ * @returns {boolean}
+ *
+ * @since 1.0.0
+ */
 Helper.prototype.isArray = function(any){
-  return typeof any === 'object' && any instanceof Array && Object.prototype.toString.call( any ) === '[object Array]';
+  return typeof any === 'object' && any instanceof Array && Object.prototype.toString.call(any) === '[object Array]';
 };
 
+/**
+ * Checks if argument is object
+ * @param any
+ * @returns {boolean}
+ *
+ * @since 1.0.0
+ */
 Helper.prototype.isObject = function(any){
-  return any === Object(any) && Object.prototype.toString.call( any ) !== '[object Array]';
+  return any === Object(any) && Object.prototype.toString.call(any) !== '[object Array]';
 };
 
+/**
+ * Removes {null} and {undefined} from {object}
+ * @param {object} object
+ * @returns {*}
+ *
+ * @since 1.0.0
+ */
 Helper.prototype.cleanObject = function(object){
   if(!this.isObject(object)){
     return object;
@@ -71,34 +154,56 @@ Helper.prototype.cleanObject = function(object){
 
   return object;
 };
-function LPW(token, debugEnabled){
+/**
+ * Main LPW class
+ * @param {string} token - API user token
+ * @param {constructorOptions} options - configuration data
+ * @constructor
+ *
+ * @since 1.0.0
+ */
+function LPW(token, options){
+  this.locale = (options && options.locale) || 'en';
+  this.debugEnabled = (options && options.debugEnabled) || false;
+
   this.connector = new Connector(token);
   this.helper = new Helper();
-  this.logger = new Logger(debugEnabled);
+  this.logger = new Logger(this.debugEnabled);
   this.optionsParser = new OptionsParser(this.helper, this.logger);
 }
 
+/**
+ * Gets properties corresponding to options
+ * @param {getPropertiesOptions} options - see getPropertiesOptions typedef
+ * @param {userCallback} userCallback
+ *
+ * @since 1.0.0
+ */
 LPW.prototype.getProperties = function(options, userCallback){
   if(typeof userCallback !== 'function' && typeof options !== 'function'){
     this.logger.log('getProperties: Callback required.');
     return;
   }
 
-  if(typeof options === 'function'){
-    userCallback = options;
-    options = {};
+  if(!options.locale){
+    options.locale = this.locale;
   }
 
-  options = this.optionsParser.getSerializedOptions(options);
-
-  this.connector.getProperties(
-    options,
-    this.getPropertiesSuccess.bind(this, userCallback),
-    this.getPropertiesError.bind(this, userCallback)
+  this.connector.readProperties(
+    this.optionsParser.getSerializedOptions(options),
+    this.defaultCallback.bind(this, userCallback)
   );
 };
 
-LPW.prototype.getPropertyById = function(id, userCallback){
+/**
+ * Gets single property by ID
+ * @param {number} id - property id
+ * @param {getPropertyByIdOptions} options - config data (see getPropertyByIdOptions typedef)
+ * @param {userCallback} userCallback
+ *
+ * @since 1.0.0
+ */
+LPW.prototype.getPropertyById = function(id, options, userCallback){
   id = parseInt(id, 10);
 
   if(typeof userCallback !== 'function'){
@@ -111,36 +216,165 @@ LPW.prototype.getPropertyById = function(id, userCallback){
     return;
   }
 
-  this.connector.getPropertyById(
+  if(!options){
+    options = {};
+  }
+
+  if(!options.locale){
+    options.locale = this.locale;
+  }
+
+  this.connector.readPropertyById(
     id,
-    this.getPropertyByIdSuccess.bind(this, userCallback),
-    this.getPropertiesError.bind(this, userCallback)
+    options.locale,
+    this.defaultCallback.bind(this, userCallback)
   );
+};
+
+/**
+ * Gets list of available currencies
+ * @param {userCallback} userCallback
+ *
+ * @since 1.0.0
+ */
+LPW.prototype.getCurrencies = function(userCallback){
+  this.connector.readCurrencies(
+    this.defaultCallback.bind(this, userCallback)
+  );
+};
+
+/**
+ * Sets default locale
+ * @param {string} locale - locale string ISO 639-1 (https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes#Partial_ISO_639_table)
+ *
+ * @since 1.0.0
+ */
+LPW.prototype.setLocale = function(locale){
+  if(typeof locale !== 'string'){
+    this.logger.log('setLocale: Locale should be a string');
+    return;
+  }
+  this.locale = locale;
 };
 
 //----------------------------------------------------------------------------------------
 // Callbacks
 //----------------------------------------------------------------------------------------
-LPW.prototype.getPropertiesSuccess = function(userCallback, XMLHttpRequest){
-  var data   = this.helper.isSuccessHTTPStatus(XMLHttpRequest.status) ? JSON.parse(XMLHttpRequest.response) : null,
-      answer = this.helper.getTransformedResponse(data, XMLHttpRequest);
-  userCallback(answer);
-};
-
-LPW.prototype.getPropertiesError = function(userCallback, XMLHttpRequest){
-  userCallback(this.helper.getTransformedResponse(null, XMLHttpRequest));
-};
-
-LPW.prototype.getPropertyByIdSuccess = function(userCallback, XMLHttpRequest){
-  // console.debug('getPropertyByIdSuccess', JSON.parse(XMLHttpRequest.response));
+/**
+ * Calls user callback with request response as argument
+ * @param {userCallback} userCallback
+ * @param {object} XMLHttpRequest
+ *
+ * @since 1.0.0
+ */
+LPW.prototype.defaultCallback = function(userCallback, XMLHttpRequest){
   var data   = this.helper.isSuccessHTTPStatus(XMLHttpRequest.status) ? JSON.parse(XMLHttpRequest.response) : null,
       answer = this.helper.getTransformedResponse(data, XMLHttpRequest);
   userCallback(answer);
 };
 
 window.LPW = LPW;
+
+//----------------------------------------------------------------------------------------
+// Definitions
+//----------------------------------------------------------------------------------------
+/**
+ * User callback
+ * @callback userCallback
+ * @param {userCallbackAnswer} answer from the API
+ */
+
+/**
+ * Answer for userCallback
+ * @typedef {object} userCallbackAnswer
+ * @property {(*|null)} data - Public API answer
+ * @property {number} status - HTTP status code
+ * @property {string} statusText - HTTP status test
+ */
+
+/**
+ * @typedef {object} constructorOptions
+ * @property {string} locale - default locale
+ * @property {boolean} debugEnabled - enable/disable errors logging
+ */
+
+/**
+ * @typedef {object} getPropertyByIdOptions
+ * @property {string} locale - locale
+ * @property {boolean} forSale - show property data for sale
+ * @property {boolean} forRent - show property data for rent
+ */
+
+/**
+ * @typedef {object} locationPoint
+ * @property {number} lat - latitude
+ * @property {number} lng - longitude
+ * @property {number} radius - radius from the point (km) to search in
+ * @property {string} countryCode - country code (https://en.wikipedia.org/wiki/ISO_3166-1) to filter properties
+ *                                  only from this country
+ */
+
+/**
+ * @typedef {object} locationShape
+ * @property {locationPoint} topRight - top-right point of target shape
+ * @property {locationPoint} bottomLeft - bottom-left point of target shape
+ * @property {string} countryCode - country code (https://en.wikipedia.org/wiki/ISO_3166-1) to filter properties
+ *                                  only from this country
+ */
+
+/**
+ * @typedef {object} propertyPrice
+ * @property {number} min - minimum price
+ * @property {number} max - maximum price
+ * @property {string} currency - currency code
+ * @property {'day'|'week'|'month'} [period] - rent period. Required only in rent query (optional)
+ *
+ * @description Requires min and|or max and currency code. Period is used only for properties for rent.
+ */
+
+/**
+ * Available options for getPropertiesOptions
+ * @typedef {object} getPropertiesOptions
+ * @property {number} id - single property id
+ * @property {string} search - search query
+ * @property {string} locale - language of the response translations
+ * @property {number}[1] page - pagination page
+ * @property {number}[10] perPage - properties per page
+ * @property {boolean} forSale - show properties for sale
+ * @property {boolean} forRent - show properties for rent
+ * @property {string} orderBy - asc/desc order of properties
+ * @property {locationPoint} locationPoint - geographical point to search around (see locationPoint typedef)
+ * @property {locationShape} locationShape - geographical shape to search in (see locationShape typedef)
+ * @property {boolean} hdPhotos - only show properties with HQ photos
+ * @property {object} area - area filter, sq.m. (min and|or max, see example below)
+ * @property {object} price - price filter (see propertyPrice typedef)
+ * @property {array.<number>} propertyTypes - array of property types ids
+ * @property {array.<number>} rooms - array of room numbers
+ * @property {array.<number>} ids - array of properties ids
+ *
+ *
+ * Rent-only properties:
+ * @property {boolean} childFriendly - show only child-friendly properties
+ * @property {boolean} petsAllowed - show properties only where pets allowed
+ * @property {boolean} longRent - show properties for long rent
+ * @property {boolean} shortRent - show properties for short rent
+ * @property {number} persons - max persons allowed to rent
+ *
+ *
+ *
+ * @example area
+ * {min: 50,max: 100} or {min: 50} or {max: 100}
+ *
+ * @example rooms
+ * [1] or [1,3,5]
+ */
+
+/**
+ * A number, or a string containing a number.
+ * @typedef {(number|string)} NumberLike
+ */
 function Logger(enabled){
-  this.enabled = enabled;
+  this.enabled = enabled || false;
 }
 
 Logger.prototype.log = function(string){
@@ -152,16 +386,27 @@ Logger.prototype.log = function(string){
 Logger.prototype.logError = function(){
 
 };
+/**
+ * LPW.getProperties options parser
+ * @param helper
+ * @param logger
+ * @constructor
+ * @since 1.0.0
+ */
 function OptionsParser(helper, logger){
   this.helper = helper;
   this.logger = logger;
 }
 
+/**
+ * Parses and removes {null|undefined} values from options hash
+ * @param {object} options
+ * @since 1.0.0
+ */
 OptionsParser.prototype.getParsedOptions = function(options){
   var $this         = this,
       parsedOptions = {
         id            : options.id || null,
-        search        : options.search || null,
         locale        : options.locale || 'en',
         page          : options.page || 1,
         per_page      : options.perPage || 10,
@@ -190,6 +435,12 @@ OptionsParser.prototype.getParsedOptions = function(options){
   return this.helper.cleanObject(parsedOptions);
 };
 
+/**
+ * Serializes options hash
+ * @param {object} options
+ * @returns {string}
+ * @since 1.0.0
+ */
 OptionsParser.prototype.getSerializedOptions = function(options){
   var paramsString = '';
   options = this.getParsedOptions(options);
@@ -219,25 +470,39 @@ OptionsParser.prototype.getSerializedOptions = function(options){
   return paramsString;
 };
 
+/**
+ * Parses and validates options.locationPoint
+ * @param {object} locationPoint
+ * @returns {null|Object}
+ * @private
+ * @since 1.0.0
+ */
 OptionsParser.prototype._getParsedLocationPoint = function(locationPoint){
   if(!this.helper.isObject(locationPoint)){
     this.logger.log('locationPoint is not an Object');
     return null;
   }
 
-  if(!(locationPoint.hasOwnProperty('lat') && locationPoint.hasOwnProperty('lon'))){
-    this.logger.log('Missing required parameters for locationPoint: lat or lon');
+  if(!(locationPoint.hasOwnProperty('lat') && locationPoint.hasOwnProperty('lng'))){
+    this.logger.log('Missing required parameters for locationPoint: lat or lng');
     return null;
   }
 
   return this.helper.cleanObject({
                                    lat         : locationPoint.lat,
-                                   lon         : locationPoint.lon,
+                                   lon         : locationPoint.lng,
                                    radius      : locationPoint.radius,
                                    country_code: locationPoint.countryCode
                                  });
 };
 
+/**
+ * Parses and validates options.locationShape
+ * @param {object} locationShape
+ * @returns {null|object}
+ * @private
+ * @since 1.0.0
+ */
 OptionsParser.prototype._getParsedLocationShape = function(locationShape){
   if(!this.helper.isObject(locationShape)){
     this.logger.log('locationShape is not an Object');
@@ -245,24 +510,37 @@ OptionsParser.prototype._getParsedLocationShape = function(locationShape){
   }
 
   if(!(locationShape.hasOwnProperty('topRight') && this.helper.isObject(locationShape.topRight) &&
-    locationShape.topRight.hasOwnProperty('lat') && locationShape.topRight.hasOwnProperty('lon'))){
+    locationShape.topRight.hasOwnProperty('lat') && locationShape.topRight.hasOwnProperty('lng'))){
     this.logger.log('Invalid value of locationShape.topRight');
     return null;
   }
 
   if(!(locationShape.hasOwnProperty('bottomLeft') && this.helper.isObject(locationShape.bottomLeft)
-    && locationShape.bottomLeft.hasOwnProperty('lat') && locationShape.bottomLeft.hasOwnProperty('lon'))){
+    && locationShape.bottomLeft.hasOwnProperty('lat') && locationShape.bottomLeft.hasOwnProperty('lng'))){
     this.logger.log('Invalid value of locationShape.bottomLeft');
     return null;
   }
 
   return this.helper.cleanObject({
-                                   top_right   : locationShape.topRight,
-                                   bottom_left : locationShape.bottomLeft,
+                                   top_right   : {
+                                     lat: locationShape.topRight.lat,
+                                     lon: locationShape.topRight.lng
+                                   },
+                                   bottom_left : {
+                                     lat: locationShape.bottomLeft.lat,
+                                     lon: locationShape.bottomLeft.lng
+                                   },
                                    country_code: locationShape.countryCode
                                  });
 };
 
+/**
+ * Parses and validates options.area
+ * @param {object} areaHash
+ * @returns {null|object}
+ * @private
+ * @since 1.0.0
+ */
 OptionsParser.prototype._getParsedArea = function(areaHash){
   if(!this.helper.isObject(areaHash)){
     this.logger.log('getProperties options: options.area is not an Object');
@@ -277,6 +555,14 @@ OptionsParser.prototype._getParsedArea = function(areaHash){
   return areaHash;
 };
 
+/**
+ * Parses and validates options.price
+ * @param {object} priceHash
+ * @param {boolean} isRent
+ * @returns {null|object}
+ * @private
+ * @since 1.0.0
+ */
 OptionsParser.prototype._getParsedPrice = function(priceHash, isRent){
   isRent = isRent || false;
   if(!this.helper.isObject(priceHash)){
@@ -299,11 +585,8 @@ OptionsParser.prototype._getParsedPrice = function(priceHash, isRent){
     return null;
   }
 
-  return priceHash;
+  return this.helper.cleanObject(priceHash);
 };
-
-//https://www.leadingproperties.com/property_objects?area%5Bmax%5D=100&area%5Bmin%5D=50&for_rent=true&for_sale=false&long_rent=false&page=1&per_page=12&rooms%5B%5D=1&rooms%5B%5D=2&short_rent=false
-//https://www.leadingproperties.com/property_objects?area[max]=100&area[min]=50&for_rent=true&for_sale=false&long_rent=false&page=1&per_page=12&rooms[]=1&rooms[]=2&short_rent=false
 }(window));
 
 //# sourceMappingURL=sdk.js.map
