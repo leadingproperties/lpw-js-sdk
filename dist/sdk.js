@@ -1,4 +1,4 @@
-;(function(window) {
+/* @version 1.0.0-alpha.1 | @license MIT */;(function(window) {
 "use strict";
 
 /**
