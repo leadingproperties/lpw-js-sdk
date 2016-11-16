@@ -7,6 +7,7 @@ var uglify = require('gulp-uglify');
 var gulpSequence = require('gulp-sequence');
 var rename = require("gulp-rename");
 var insert = require('gulp-insert');
+var Server = require('karma').Server;
 
 var packageData = require('./package.json');
 
@@ -45,6 +46,12 @@ gulp.task('watch', function() {
   gulp.watch(paths.scripts, ['scripts']);
 });
 
-gulp.task('build', gulpSequence('scripts', 'uglify'));
+gulp.task('test-lib', function (done) {
+  new Server({
+    configFile: __dirname + '/karma-dist.conf.js'
+  }, done).start();
+});
+
+gulp.task('build', gulpSequence('scripts', 'uglify', 'test-lib'));
 
 gulp.task('default', ['build']);
