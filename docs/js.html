@@ -1,0 +1,1905 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Documentation</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <style>
+        body {
+            position: relative;
+        }
+        .no-margin {
+            margin: 0;
+        }
+        .mbn {
+            margin-bottom: 0 !important;
+        }
+        .sidebar nav .nav>.active>a {
+            border-left: 2px solid #563d7c;
+            color: #563d7c;
+            font-weight: 600;
+        }
+        .sidebar .nav .nav a {
+            font-size: 13px;
+            padding: 5px 15px 5px 30px;
+        }
+        .bs-callout {
+            padding: 20px;
+            margin: 20px 0;
+            border: 1px solid #eee;
+            border-left-width: 5px;
+            border-radius: 3px;
+        }
+        .bs-callout h4 {
+            margin-top: 0;
+            margin-bottom: 5px;
+        }
+        .bs-callout p:last-child {
+            margin-bottom: 0;
+        }
+        .bs-callout code {
+            border-radius: 3px;
+        }
+        .bs-callout+.bs-callout {
+            margin-top: -5px;
+        }
+        .bs-callout-default {
+            border-left-color: #777;
+        }
+        .bs-callout-default h4 {
+            color: #777;
+        }
+        .bs-callout-primary {
+            border-left-color: #428bca;
+        }
+        .bs-callout-primary h4 {
+            color: #428bca;
+        }
+        .bs-callout-success {
+            border-left-color: #5cb85c;
+        }
+        .bs-callout-success h4 {
+            color: #5cb85c;
+        }
+        .bs-callout-danger {
+            border-left-color: #ce4844;
+        }
+        .bs-callout-danger h4 {
+            color: #ce4844;
+        }
+        .bs-callout-warning {
+            border-left-color: #f0ad4e;
+        }
+        .bs-callout-warning h4 {
+            color: #f0ad4e;
+        }
+        .bs-callout-info {
+            border-left-color: #1b809e;
+        }
+        .bs-callout-info h4 {
+            color: #1b809e;
+        }
+        .bs-callout ol {
+            padding-left: 15px;
+        }
+        a.disabled {
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body data-spy="scroll" data-target="#navbar-spy">
+<div class="page-content">
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">LPW</a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="" class="disabled" aria-disabled='true'>Public API</a></li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Libraries <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li class="active"><a href="js.html">Javascript</a></li>
+                            <li><a href="" class="disabled" aria-disabled="true">PHP</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-8">
+                <h1>Documentation</h1>
+                <hr>
+
+                <div class="panel panel-default">
+                    <h3 id="definitions" class="panel-heading no-margin">Definitions and references</h3>
+                    <div class="panel-body">
+                        <div class="bs-callout bs-callout-info">
+                            <h4>Definitions:</h4>
+                            <ol>
+                                <li><code>localized</code> - translated (if translation is present) accordingly to locale set in constructor or passed as request parameter</li>
+                                <li>
+                                    <code>price on demand</code>,<br>
+                                    <code>deposit on demand</code>,<br>
+                                    <code>commission on demand</code> - <code>on_demand=true</code> means that price (or deposit, or commission) isn't public. I.e. it can be provided only by a seller/owner privately. (Contact form request, phone call, etc.)</li>
+                                <li><code>slug</code> - part of <a href="https://en.wikipedia.org/wiki/Semantic_URL#Slug">Semantic URL</a></li>
+                            </ol>
+                        </div>
+                        <div class="bs-callout bs-callout-info">
+                            <h4>References:</h4>
+                            <ol>
+                                <li>Country code format: <a href="https://en.wikipedia.org/wiki/ISO_3166-1#Current_codes" target="_blank">ISO 3166-1</a></li>
+                                <li>Currency code format: <a href="https://en.wikipedia.org/wiki/ISO_4217#Active_codes" target="_blank">ISO 4217</a></li>
+                                <li>Locales codes format: <a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes#Partial_ISO_639_table" target="_blank">ISO 639-1</a></li>
+                                <li>Timestamps format: <a href="https://www.w3.org/TR/NOTE-datetime" target="_blank">https://www.w3.org/TR/NOTE-datetime</a></li>
+                            </ol>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <h3 id="initialization" class="panel-heading no-margin">Initialization</h3>
+                    <div class="panel-body">
+                        <pre class="prettyprint linenums=1">var lpw = new LPW(token, options);</pre>
+                        <h3>Parameters</h3>
+                        <table class="table table-bordered mbn">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>Default</th>
+                                <th>Description</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Token</td>
+                                <td>String</td>
+                                <th>-</th>
+                                <td>LPW front-end user token for API access.</td>
+                            </tr>
+                            <tr>
+                                <td>options</td>
+                                <td>Object</td>
+                                <td>-</td>
+                                <td>
+                                    Options for LPW instance:
+                                    <pre class="prettyprint linenums=1">
+{
+    locale      : {String},
+    debugEnabled: {Boolean}
+}</pre>
+
+                                    Where:
+                                    <ul class="list-unstyled">
+                                        <li>
+                                            <code>locale</code> - allows to set default locale for all requests.<br>
+                                            List of available locales depends on your settings in mylwp.io.<br>
+                                            Full list of available locales can be found <a href="#locales-list">here</a>.
+                                        </li>
+                                        <li><code>debugEnabled</code> - enables/disables debug info</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <br>
+
+                <h2>Available methods</h2>
+
+                <div class="panel panel-default">
+                    <h3 id="getProperties" class="panel-heading no-margin">getProperties</h3>
+                    <div class="panel-body">
+                        <pre class="prettyprint linenums=1">lpw.getProperties(options,callback);</pre>
+                        <h3>Parameters</h3>
+                        <table class="table table-bordered mbn">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>Default</th>
+                                <th>Description</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>options</td>
+                                <td>Object</td>
+                                <td>-</td>
+                                <td>Set of options to filter properties. See full description <a href="#options-info">below</a></td>
+                            </tr>
+                            <tr>
+                                <td>callback</td>
+                                <td>Function</td>
+                                <td>-</td>
+                                <td>Function called when request is complete. See full description <a href="#callback-info-1">below</a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        <hr>
+
+                        <div>
+                            <h4 id="options-info">Options</h4>
+                            <p>List of available properties:</p>
+                            <table class="table table-bordered mbn">
+                                <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                    <th>Default</th>
+                                    <th>Description</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>forSale</td>
+                                    <td>Boolean</td>
+                                    <td><code>true</code></td>
+                                    <td>Show properties only for sale. Should has opposite value for <code>forRent</code></td>
+                                </tr><!--forSale-->
+                                <tr>
+                                    <td>forRent</td>
+                                    <td>Boolean</td>
+                                    <td><code>false</code></td>
+                                    <td>Show properties only for rent. Should has opposite value for <code>forSale</code></td>
+                                </tr><!--forRent-->
+                                <tr>
+                                    <td>locale</td>
+                                    <td>String</td>
+                                    <td><code class="text-success">'en'</code></td>
+                                    <td>
+                                        Language of property data (title, description, etc.).<br>
+                                        List of available locales depends on your settings in mylwp.io.<br>
+                                        Full list of available locales can be found <a href="#locales-list">here</a>.
+                                    </td>
+                                </tr><!--locale-->
+                                <tr>
+                                    <td>locationShape</td>
+                                    <td>Object</td>
+                                    <td>-</td>
+                                    <td>
+                                        Geographical shape consisting of 2 geographical points (top-right and bottom-left).<br>
+                                        Example:
+                                        <pre class="prettyprint linenums=1">{
+   top_right   : {
+     lat: {Number},
+     lon: {Number}
+   },
+   bottom_left : {
+     lat: {Number}
+     lon: {Number}
+   },
+   country_code: {String}
+}</pre>
+                                        <a href="https://en.wikipedia.org/wiki/ISO_3166-1" target="_blank">Country code </a> to show properties from this country first, because shape can contain properties from different countries.
+                                    </td>
+                                </tr><!--locationShape-->
+                                <tr>
+                                    <td>locationPoint</td>
+                                    <td>Object</td>
+                                    <td>-</td>
+                                    <td>
+                                        Geographical point.<br>
+                                        Example:
+                                        <pre class="prettyprint linenums=1">{
+    lat         : {Number},
+    lon         : {Number},
+    radius      : {Number},
+    country_code: {String}
+}</pre>
+                                        Where:
+                                        <ul>
+                                            <li>Radius: radius from the point (km) to search in.</li>
+                                            <li><a href="https://en.wikipedia.org/wiki/ISO_3166-1" target="_blank">Country code:</a> allows to show properties from this country at first place, because some geographical area can contain properties from different countries.</li>
+                                        </ul>
+                                    </td>
+                                </tr><!--locationPoint-->
+                                <tr>
+                                    <td>price</td>
+                                    <td>Object</td>
+                                    <td>-</td>
+                                    <td>
+                                        <p>
+                                            Property price filter. It should contain currency code and at least one of min or max value.<br>
+                                            Additionally, for rent query, it should contain rent period.
+                                        </p>
+                                        Example:
+                                        <pre class="prettyprint linenums=1">{
+    min: {Number},
+    max: {Number},
+    currency: {Number},
+    period: {String}
+}</pre>
+                                        Where:
+                                        <ul>
+                                            <li>min - minimum price value</li>
+                                            <li>max - maximum price value</li>
+                                            <li>currency - currency id. Can be obtained by <a href="#getCurrencies">getCurrencies</a> method.</li>
+                                            <li>
+                                                period - Rent period. Used only in queries with <code class="code">forRent=true</code>.<br>
+                                                Allowed values: <code>'day' | 'week' | 'month'</code>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr><!--price-->
+                                <tr>
+                                    <td>area</td>
+                                    <td>Object</td>
+                                    <td>-</td>
+                                    <td>
+                                        Property area filter (sq. m).<br>
+                                        Example:
+                                        <pre class="prettyprint linenums=1">{
+    min: {Number},
+    max: {Number}
+}</pre>
+                                    </td>
+                                </tr><!--area-->
+                                <tr>
+                                    <td>propertyTypes</td>
+                                    <td>Array</td>
+                                    <td>-</td>
+                                    <td>
+                                        Property type filter.<br>
+                                        Allowed values: 1 - for apartments, 2 - for houses.<br>
+                                        You can use one or both, example: <code>[2]</code> or <code>[1,2]</code>
+                                    </td>
+                                </tr><!--propertyTypes-->
+                                <tr>
+                                    <td>rooms</td>
+                                    <td>Array</td>
+                                    <td>-</td>
+                                    <td>
+                                        Rooms number filter.<br>
+                                        Allowed values: <code>1, 2, 3, 4, 5</code>.<br>
+                                        Where <code>5</code> means 5 and above. <br>
+                                        You can use one or few, example: <code>[5]</code> or <code>[1,4,5]</code>
+                                    </td>
+                                </tr><!--rooms-->
+                                <tr>
+                                    <td>orderBy</td>
+                                    <td>String</td>
+                                    <td><code class="text-success">'desc'</code></td>
+                                    <td>
+                                        Order filter.<br>
+                                        Allowed values: <code>'asc'</code> and <code>'desc'</code>.
+                                    </td>
+                                </tr><!--orderBy-->
+                                <tr>
+                                    <td>hdPhotos</td>
+                                    <td>Boolean</td>
+                                    <td><code>false</code></td>
+                                    <td>Show properties only with high-quality photos.</td>
+                                </tr><!--hdPhotos-->
+                                <tr>
+                                    <td>page</td>
+                                    <td>Number</td>
+                                    <td><code class="text-info">1</code></td>
+                                    <td>Page number.</td>
+                                </tr><!--page-->
+                                <tr>
+                                    <td>perPage</td>
+                                    <td>Number</td>
+                                    <td><code class="text-info">10</code></td>
+                                    <td>Properties per page.</td>
+                                </tr><!--perPage-->
+                                <tr>
+                                    <td>id</td>
+                                    <td>Number</td>
+                                    <td>-</td>
+                                    <td>Property ID. Other filters except <code>forSale, forRent, locale</code> are ignored.</td>
+                                </tr><!--id-->
+                                <tr>
+                                    <td>ids</td>
+                                    <td>Array</td>
+                                    <td>-</td>
+                                    <td>Array of properties IDs. Other filters except <code>forSale, forRent, locale, orderBy</code> are ignored.</td>
+                                </tr><!--ids-->
+                                <tr>
+                                    <td>longRent</td>
+                                    <td>Boolean</td>
+                                    <td>-</td>
+                                    <td>
+                                        <strong class="text-danger">Rent only!</strong><br>
+                                        Show properties only for long-term rent. Can be used with <code>shortRent</code>,
+                                        but in case when both values set to <code>true</code> would give same result,
+                                        as both set to <code>false</code> or undefined.
+                                    </td>
+                                </tr><!--longRent-->
+                                <tr>
+                                    <td>shortRent</td>
+                                    <td>Boolean</td>
+                                    <td>-</td>
+                                    <td>
+                                        <strong class="text-danger">Rent only!</strong><br>
+                                        Show properties only for short-term rent. Can be used with <code>longRent</code>,
+                                        but in case when both values set to <code>true</code> would give same result,
+                                        as both set to <code>false</code> or undefined.
+                                    </td>
+                                </tr><!--shortRent-->
+                                <tr>
+                                    <td>childFriendly</td>
+                                    <td>Boolean</td>
+                                    <td>-</td>
+                                    <td>
+                                        <strong class="text-danger">Rent only!</strong><br>
+                                        Show only child-friendly properties for rent.
+                                    </td>
+                                </tr><!--childFriendly-->
+                                <tr>
+                                    <td>petsAllowed</td>
+                                    <td>Boolean</td>
+                                    <td>-</td>
+                                    <td>
+                                        <strong class="text-danger">Rent only!</strong><br>
+                                        Show properties only where pets allowed.
+                                    </td>
+                                </tr><!--petsAllowed-->
+                                <tr>
+                                    <td>persons</td>
+                                    <td>Number</td>
+                                    <td>-</td>
+                                    <td>
+                                        <strong class="text-danger">Rent only!</strong><br>
+                                        Show properties only where specified number of persons allowed.
+                                    </td>
+                                </tr><!--persons-->
+                                </tbody>
+                            </table>
+                        </div><!--getProperties options-->
+
+                        <hr>
+
+                        <div>
+                            <h4 id="callback-info-one">Callback</h4>
+                            <p>It will receive answer as first argument. Answer is an object with these properties:</p>
+                            <pre class="prettyprint linenums=1">
+{
+    data: {
+        property_objects: [
+            {Object},
+            {Object}
+            ...
+        ],
+        total: {Number},
+        offmarket: {Number}
+    },
+    status: {Number}
+    statusText: {String}
+}</pre>
+                            <table class="table table-bordered mbn">
+                                <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                    <th>Default</th>
+                                    <th>Description</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>data</td>
+                                    <td>Object</td>
+                                    <td>-</td>
+                                    <td>
+                                        Payload object, where: <br>
+                                        <ul class="list-unstyled">
+                                            <li><code>property_objects</code> - array with properties data.</li>
+                                            <li><code>total</code> - total number of properties matching request.</li>
+                                            <li><code>offmarket</code> - total number of off-market properties matching request.</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>status</td>
+                                    <td>Number</td>
+                                    <td>-</td>
+                                    <td>
+                                        <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/status" target="_blank">XMLHttpRequest.status</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>statusText</td>
+                                    <td>String</td>
+                                    <td>-</td>
+                                    <td>
+                                        <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/statusText" target="_blank">XMLHttpRequest.statusText</a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div><!--getProperties callback-->
+
+                    </div>
+                </div><!--getProperties-->
+
+                <div class="panel panel-default">
+                    <h3 id="getPropertyById" class="panel-heading no-margin">getPropertyById</h3>
+                    <div class="panel-body">
+                        <pre class="prettyprint linenums=1">lpw.getPropertyById(id, options, callback);</pre>
+                        <h3>Parameters</h3>
+                        <table class="table table-bordered mbn">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>Default</th>
+                                <th>Description</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>id</td>
+                                <td>Number</td>
+                                <td>-</td>
+                                <td>Property ID</td>
+                            </tr>
+                            <tr>
+                                <td>options</td>
+                                <td>Object</td>
+                                <td>-</td>
+                                <td>Request config options. See full description <a href="#m2-options">below</a></td>
+                            </tr>
+                            <tr>
+                                <td>callback</td>
+                                <td>Function</td>
+                                <td>-</td>
+                                <td>Function called when request is complete. See full description <a href="#m2-callback">below</a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        <hr>
+
+                        <div>
+                            <h4 id="m2-id">Id</h4>
+                            <p>Id of the property.</p>
+                        </div>
+
+                        <hr>
+
+                        <div>
+                            <h4 id="m2-options">Options</h4>
+                            <p>List of available properties:</p>
+                            <table class="table table-bordered mbn">
+                                <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                    <th>Default</th>
+                                    <th>Description</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>locale</td>
+                                    <td>String</td>
+                                    <td><code>'en'</code></td>
+                                    <td>Language of property data (title, description, etc.).<br>
+                                        List of available locales depends on your settings in mylwp.io.<br>
+                                        Full list of available locales can be found <a href="#locales-list">here</a></td>
+                                </tr><!--locale-->
+                                </tbody>
+                            </table>
+                        </div><!--getPropertyById options-->
+
+                        <hr>
+
+                        <div>
+                            <h4 id="m2-callback">Callback</h4>
+                            <p>It will receive answer as first argument. Answer is an object with these properties:</p>
+                            <pre class="prettyprint linenums=1">
+{
+    data: {
+        property_objects: [
+            {...}
+        ]
+    },
+    status: {Number}
+    statusText: {String}
+}</pre>
+                            <table class="table table-bordered mbn">
+                                <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                    <th>Default</th>
+                                    <th>Description</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>data</td>
+                                    <td>Object</td>
+                                    <td>-</td>
+                                    <td>
+                                        Payload object, where: <br>
+                                        <ul class="list-unstyled">
+                                            <li><code>property_objects</code> - array with requested property data.</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>status</td>
+                                    <td>Number</td>
+                                    <td>-</td>
+                                    <td>
+                                        <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/status" target="_blank">XMLHttpRequest.status</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>statusText</td>
+                                    <td>String</td>
+                                    <td>-</td>
+                                    <td>
+                                        <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/statusText" target="_blank">XMLHttpRequest.statusText</a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div><!--getPropertyById callback-->
+                    </div>
+                </div><!--getPropertyById-->
+
+                <div class="panel panel-default">
+                    <h3 id="getCurrencies" class="panel-heading no-margin">getCurrencies</h3>
+                    <div class="panel-body">
+                        <pre class="prettyprint linenums=1">lpw.getCurrencies(callback);</pre>
+                        <h3>Parameters</h3>
+                        <table class="table table-bordered mbn">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>Default</th>
+                                <th>Description</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>callback</td>
+                                <td>Function</td>
+                                <td>-</td>
+                                <td>Function called when request is complete. See full description <a href="#m3-callback">below</a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <hr>
+
+                        <div>
+                            <h4 id="m3-callback">Callback</h4>
+                            <p>It will receive answer as first argument. Answer is an object with these properties:</p>
+                            <pre class="prettyprint linenums=1">
+{
+    data: {
+        currencies: {Array}
+    },
+    status: {Number}
+    statusText: {String}
+}</pre>
+                            <table class="table table-bordered mbn">
+                                <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                    <th>Default</th>
+                                    <th>Description</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>data</td>
+                                    <td>Object</td>
+                                    <td>-</td>
+                                    <td>
+                                        Payload object, where: <br>
+                                        <ul class="list-unstyled">
+                                            <li><code>currencies</code> - array of currencies. <a href="#currency">Currency data description.</a></li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>status</td>
+                                    <td>Number</td>
+                                    <td>-</td>
+                                    <td>
+                                        <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/status" target="_blank">XMLHttpRequest.status</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>statusText</td>
+                                    <td>String</td>
+                                    <td>-</td>
+                                    <td>
+                                        <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/statusText" target="_blank">XMLHttpRequest.statusText</a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table><!--getCurrencies callback-->
+                        </div>
+                    </div>
+                </div><!--getCurrencies-->
+
+                <div class="panel panel-default">
+                    <h3 id="set-locale" class="panel-heading no-margin">setLocale</h3>
+                    <div class="panel-body">
+                        <pre class="prettyprint linenums=1">lpw.setLocale(locale);</pre>
+                        <h3>Parameters</h3>
+                        <table class="table table-bordered mbn">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>Default</th>
+                                <th>Description</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>locale</td>
+                                <td>String</td>
+                                <td>-</td>
+                                <td>
+                                    ISO 639-1 language code.<br>
+                                    List of locales is <a href="#locales-list">here</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <hr>
+                    </div>
+                </div><!--setLocale-->
+
+                <br>
+
+                <h2>Types</h2>
+
+                <div class="panel panel-default">
+                    <h3 id="property-object-short" class="panel-heading no-margin">Property (short)</h3>
+                    <div class="panel-body">
+                        <p class="lead">
+                            Property data description.<br>
+                            This structure used in <code>getProperties</code> response.
+                        </p>
+                        <div class="bs-callout bs-callout-danger">
+                            <h4>Important notes:</h4>
+                            <ol class="">
+                                <li>Almost all items with defined type, shown in scheme, can be <code>null</code>.</li>
+                            </ol>
+                        </div>
+                        <h4>Scheme:</h4>
+                        <pre class="prettyprint linenums=1">{
+    "id"           : {Number},
+    "code"         : {String},
+    "slug"         : {String},
+    "rent_slug"    : {String},
+    "country"      : {
+        "code" : {String},
+        "title": {String},
+        "id"   : {Number}
+    },
+    "region"       : {
+        "title": {String},
+        "id"   : {Number}
+    },
+    "city"         : {
+        "title": {String},
+        "id"   : {Number}
+    },
+    "district"     : {
+        "title": {String},
+        "id"   : {String}
+    },
+    "parameters"   : {
+        "price"    : {
+          "min"        : {Number},
+          "max"        : {Number},
+          "conv_min"   : {Number},
+          "conv_max"   : {Number},
+          "euro_min"   : {Number},
+          "euro_max"   : {Number},
+          "on_demand"  : {Boolean},
+          "currency_id": {Number},
+          "currency"   : {String}
+        },
+        "area"     : {
+            "min": {Number},
+            "max": {Number}
+        },
+        "rooms"    : {
+            "min": {Number},
+            "max": {Number}
+        },
+        "bedrooms" : {
+            "min": {Number},
+            "max": {Number}
+        },
+        "bathrooms": {
+            "min": {Number},
+            "max": {Number}
+        }
+    },
+    "image"        : {String},
+    "description"  : {
+        "title"     : {String},
+        "rent_title": {String}
+    },
+    "property_rent": {
+        "persons_max": {Number},
+        "short_rent" : {Boolean},
+        "long_rent"  : {Boolean},
+        "rent_long"  : {
+          "on_demand" : {Boolean},
+          "sort_price": {Object}
+        },
+        "rent_short" : {
+          "on_demand" : {Boolean},
+          "sort_price": {Object},
+          "min_day"   : {Boolean},
+          "min_week"  : {Boolean},
+          "min_month" : {Boolean},
+        }
+    }
+}</pre>
+                        <h4>Description:</h4>
+                        <table class="table table-bordered table-striped mbn">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>Description</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td><strong>id</strong></td>
+                                <td>Number</td>
+                                <td>ID</td>
+                            </tr><!--Property ID-->
+                            <tr>
+                                <td><strong>code</strong></td>
+                                <td>String</td>
+                                <td>System property code.</td>
+                            </tr><!--Property code-->
+                            <tr>
+                                <td><strong>slug</strong></td>
+                                <td>String</td>
+                                <td>
+                                    Item slug used in <a href="https://www.leadingproperties.com/" target="_blank">leadingproperties.com</a> sale route.
+                                </td>
+                            </tr><!--Property slug-->
+                            <tr>
+                                <td><strong>rent_slug</strong></td>
+                                <td>String</td>
+                                <td>
+                                    Item slug used in <a href="https://www.leadingproperties.com/" target="_blank">leadingproperties.com</a> rent route.
+                                </td>
+                            </tr><!--Property rent_slug-->
+                            <tr>
+                                <td><strong>country</strong></td>
+                                <td>Object</td>
+                                <td>
+                                    Country where property located.<br>
+                                    Where:
+                                    <ul class="list-unstyled">
+                                        <li><code>code</code> - <a href="https://en.wikipedia.org/wiki/ISO_3166-1#Current_codes" target="_blank">alpha-2</a> country code</li>
+                                        <li><code>title</code> - country name (localized)</li>
+                                        <li><code>id</code> - system country id</li>
+                                    </ul>
+                                </td>
+                            </tr><!--Property country-->
+                            <tr>
+                                <td><strong>region</strong></td>
+                                <td>Object</td>
+                                <td>
+                                    Country region where property located.<br>
+                                    Where:
+                                    <ul class="list-unstyled">
+                                        <li><code>title</code> - region name (localized)</li>
+                                        <li><code>id</code> - system region id</li>
+                                    </ul>
+                                </td>
+                            </tr><!--Property region-->
+                            <tr>
+                                <td><strong>city</strong></td>
+                                <td>Object</td>
+                                <td>
+                                    City where property located.<br>
+                                    Where:
+                                    <ul class="list-unstyled">
+                                        <li><code>title</code> - city name (localized)</li>
+                                        <li><code>id</code> - system city id</li>
+                                    </ul>
+                                </td>
+                            </tr><!--Property city-->
+                            <tr>
+                                <td><strong>district</strong></td>
+                                <td>Object</td>
+                                <td>
+                                    District where property located.<br>
+                                    Where:
+                                    <ul class="list-unstyled">
+                                        <li><code>title</code> - district name (localized)</li>
+                                        <li><code>id</code> - system district id</li>
+                                    </ul>
+                                </td>
+                            </tr><!--Property district-->
+                            <tr>
+                                <td><strong>parameters</strong></td>
+                                <td>Object</td>
+                                <td>
+                                    Main property features:<br>
+                                    <ul class="list-unstyled">
+                                        <li><code>price</code> - property price for <code>sale</code>. See description <a href="#property-sale-price">below</a></li>
+                                        <li><code>area</code> - min. and max. property area</li>
+                                        <li><code>rooms</code> - min. and max. rooms</li>
+                                        <li><code>bedrooms</code> - min. and max. bedrooms</li>
+                                        <li><code>bathrooms</code> - min. and max. bathrooms</li>
+                                    </ul>
+                                </td>
+                            </tr><!--Property parameters-->
+                            <tr>
+                                <td><strong>image</strong></td>
+                                <td>String</td>
+                                <td>Property thumbnail (348x205 px).</td>
+                            </tr><!--Property image-->
+                            <tr>
+                                <td><strong>description</strong></td>
+                                <td>Object</td>
+                                <td>
+                                    Contains 2 properties:
+                                    <ul class="list-unstyled">
+                                        <li><code>title</code> - title for sale</li>
+                                        <li><code>rent_title</code> - title for rent</li>
+                                    </ul>
+                                </td>
+                            </tr><!--Property description-->
+                            <tr>
+                                <td><strong>property_rent</strong></td>
+                                <td>Object</td>
+                                <td>
+                                    Rent only data. Has these properties:
+                                    <ul class="list-unstyled">
+                                        <li><code>persons_max</code> - maximum persons allowed</li>
+                                        <li><code>short_rent</code> - has short-term rent</li>
+                                        <li><code>long_rent</code> - has long-term rent</li>
+                                        <li><code>rent_long.on_demand</code> - long-term rent <a href="#definitions">price on demand</a></li>
+                                        <li>
+                                            <code>rent_long.sort_price</code> - Object (see description <a href="#property-rent-sort-price">below</a>)<br>
+                                            or <code>null</code> if not present.
+                                        </li>
+                                        <li><code>rent_short.on_demand</code> - short-term rent <a href="#definitions">price on demand</a></li>
+                                        <li><code>rent_short.min_day</code> - minimum rent 1 day</li>
+                                        <li><code>rent_short.min_week</code> - minimum rent 1 week</li>
+                                        <li><code>rent_short.min_month</code> - minimum rent 1 month</li>
+                                        <li>
+                                            <code>rent_short.sort_price</code> - Object (see description <a href="#property-rent-sort-price">below</a>)<br>
+                                            or <code>null</code> if not present.
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr><!--Property property_rent-->
+                            </tbody>
+                        </table>
+                    </div>
+                </div><!--Property object type (short)-->
+
+                <div class="panel panel-default">
+                    <h3 id="property-object-full" class="panel-heading no-margin">Property (full)</h3>
+                    <div class="panel-body">
+                        <p class="lead">
+                            Property data description.<br>
+                            This structure used in <code>getPropertyById</code> response.
+                        </p>
+                        <div class="bs-callout bs-callout-danger">
+                            <h4>Important notes:</h4>
+                            <ol class="">
+                                <li>Almost all items with defined type, shown in scheme, can be <code>null</code>.</li>
+                            </ol>
+                        </div>
+                        <h4>Scheme:</h4>
+                        <pre class="prettyprint linenums=1">{
+  "id"           : {Number},
+  "code"         : {String},
+  "status_id"    : {Number},
+  "offmarket"    : {Boolean},
+  "sold_state"   : {Boolean},
+  "location"     : {
+    "lat": {Number},
+    "lon": {Number}
+  },
+  "slugs"        : {Object},
+  "slug"         : {String},
+  "rent_slugs"   : {Object},
+  "rent_slug"    : {String},
+  "country"      : {
+    "code" : {String},
+    "title": {String},
+    "id"   : {Number}
+  },
+  "region"       : {
+    "title": {String},
+    "id"   : {Number}
+  },
+  "city"         : {
+    "title": {String},
+    "id"   : {Number}
+  },
+  "district"     : {
+    "title": {String},
+    "id"   : {Number}
+  },
+  "parameters"   : {
+    "property_object_type": {String},
+    "price"               : {
+      "min"        : {Number},
+      "max"        : {Number},
+      "conv_min"   : {Number},
+      "conv_max"   : {Number},
+      "euro_min"   : {Number},
+      "euro_max"   : {Number},
+      "on_demand"  : {Boolean},
+      "currency_id": {Number},
+      "currency"   : {String}
+    },
+    "area"                : {
+      "min": {Number},
+      "max": {Number}
+    },
+    "rooms"               : {
+      "min": {Number},
+      "max": {Number}
+    },
+    "images"              : {Array}
+  },
+  "features"     : {
+    "bedrooms"        : {
+      "min": {Number},
+      "max": {Number}
+    },
+    "bathrooms"       : {
+      "min": {Number},
+      "max": {Number}
+    },
+    "land_area"       : {
+      "min": {Number},
+      "max": {Number}
+    },
+    "building_storeys": {Number},
+    "pool"            : {Boolean},
+    "garage_parking"  : {Boolean},
+    "terrace_balcony" : {Boolean},
+    "utility_rooms"   : {Boolean}
+  },
+  "description"  : {
+    "title"              : {String},
+    "rent_title"         : {String},
+    "main_text"          : {String},
+    "short_text"         : {String},
+    "rent_short_text"    : {String}
+  },
+  "seo_fields"   : {
+    "focus_keyword"   : {String},
+    "seo_title"       : {String},
+    "meta_description": {String},
+  },
+  "property_rent": {
+    "id"                          : {Number},
+    "persons_max"                 : {Number},
+    "child_friendly"              : {Boolean},
+    "pets_allowed"                : {Boolean},
+    "long_rent"                   : {Boolean},
+    "short_rent"                  : {Boolean},
+    "rent_long"                   : {Object},
+    "rent_short"                  : {Object},
+    "slug_translations"           : {Object},
+    "rent_title_translations"     : {Object},
+    "rent_short_text_translations": {Object}
+  }
+}</pre>
+                        <h4>Description:</h4>
+                        <table class="table table-bordered table-striped mbn">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>Description</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td><strong>id</strong></td>
+                                <td>Number</td>
+                                <td>ID</td>
+                            </tr><!--Property ID-->
+                            <tr>
+                                <td><strong>code</strong></td>
+                                <td>String</td>
+                                <td>System property code.</td>
+                            </tr><!--Property code-->
+                            <tr>
+                                <td><strong>status_id</strong></td>
+                                <td>Number</td>
+                                <td>
+                                    Property status:<br>
+                                    <ul class="list-unstyled">
+                                        <li><code>1</code> - Available</li>
+                                        <li><code>2</code> - Unavailable</li>
+                                        <li><code>3</code> - Sold</li>
+                                    </ul>
+                                </td>
+                            </tr><!--status_id-->
+                            <tr>
+                                <td><strong>offmarket</strong></td>
+                                <td>Boolean</td>
+                                <td>Is property offmarket or not</td>
+                            </tr><!--offmarket-->
+                            <tr>
+                                <td><strong>sold_state</strong></td>
+                                <td>Boolean</td>
+                                <td>Is property sold or not</td>
+                            </tr><!--sold_state-->
+                            <tr>
+                                <td><strong>location</strong></td>
+                                <td>Object</td>
+                                <td>Geographical point</td>
+                            </tr><!--location-->
+                            <tr>
+                                <td><strong>slugs</strong></td>
+                                <td>Object</td>
+                                <td>
+                                    Object with all available localizations of property slug. (<strong class="text-danger">sale</strong>)<br>
+                                    Example:
+                                    <pre class="prettyprint linenums=1">{
+    "ar" : {String}
+    "bg" : {String}
+    ...
+    "ind": {String}
+}</pre>
+                                    List of locales for a property name reference can be found <a href="#locales-list">here</a>
+                                </td>
+                            </tr><!--slugs-->
+                            <tr>
+                                <td><strong>slug</strong></td>
+                                <td>String</td>
+                                <td>Slug in current locale (<strong class="text-danger">sale</strong>)</td>
+                            </tr><!--slug-->
+                            <tr>
+                                <td><strong>slugs</strong></td>
+                                <td>Object</td>
+                                <td>
+                                    Object with all available localizations of property slug (<strong class="text-danger">rent</strong>).<br>
+                                    Example:
+                                    <pre class="prettyprint linenums=1">{
+    "ar" : {String}
+    "bg" : {String}
+    ...
+    "ind": {String}
+}</pre>
+                                    List of locales for a property name reference can be found <a href="#locales-list">here</a>
+                                </td>
+                            </tr><!--rent_slugs-->
+                            <tr>
+                                <td><strong>rent_slug</strong></td>
+                                <td>String</td>
+                                <td>Slug in current locale (<strong class="text-danger">rent</strong>)</td>
+                            </tr><!--rent_slug-->
+                            <tr>
+                                <td><strong>country</strong></td>
+                                <td>Object</td>
+                                <td>
+                                    Country where property located.<br>
+                                    Where:
+                                    <ul class="list-unstyled">
+                                        <li><code>code</code> - <a href="https://en.wikipedia.org/wiki/ISO_3166-1#Current_codes" target="_blank">alpha-2</a> country code</li>
+                                        <li><code>title</code> - country name (localized)</li>
+                                        <li><code>id</code> - system country id</li>
+                                    </ul>
+                                </td>
+                            </tr><!--Property country-->
+                            <tr>
+                                <td><strong>region</strong></td>
+                                <td>Object</td>
+                                <td>
+                                    Country region where property located.<br>
+                                    Where:
+                                    <ul class="list-unstyled">
+                                        <li><code>title</code> - region name (localized)</li>
+                                        <li><code>id</code> - system region id</li>
+                                    </ul>
+                                </td>
+                            </tr><!--Property region-->
+                            <tr>
+                                <td><strong>city</strong></td>
+                                <td>Object</td>
+                                <td>
+                                    City where property located.<br>
+                                    Where:
+                                    <ul class="list-unstyled">
+                                        <li><code>title</code> - city name (localized)</li>
+                                        <li><code>id</code> - system city id</li>
+                                    </ul>
+                                </td>
+                            </tr><!--Property city-->
+                            <tr>
+                                <td><strong>district</strong></td>
+                                <td>Object</td>
+                                <td>
+                                    District where property located.<br>
+                                    Where:
+                                    <ul class="list-unstyled">
+                                        <li><code>title</code> - district name (localized)</li>
+                                        <li><code>id</code> - system district id</li>
+                                    </ul>
+                                </td>
+                            </tr><!--Property district-->
+                            <tr>
+                                <td><strong>parameters</strong></td>
+                                <td>Object</td>
+                                <td>
+                                    Primary property features:<br>
+                                    <ul class="list-unstyled">
+                                        <li><code>property_object_type</code> - localized property type name</li>
+                                        <li><code>price</code> - property price for <code>sale</code>. See description <a href="#property-sale-price">here</a></li>
+                                        <li><code>area</code> - min. and max. property area</li>
+                                        <li><code>rooms</code> - min. and max. rooms</li>
+                                        <li><code>images</code> - Array of urls (strings) to property photos</li>
+                                    </ul>
+                                </td>
+                            </tr><!--parameters-->
+                            <tr>
+                                <td><strong>features</strong></td>
+                                <td>Object</td>
+                                <td>
+                                    Secondary property features:<br>
+                                    <ul class="list-unstyled">
+                                        <li><code>bedrooms</code> - min. and max. bedrooms</li>
+                                        <li><code>bathrooms</code> - min. and max. bathrooms</li>
+                                        <li><code>land_area</code> - min. and max. land area (sq.m.)</li>
+                                        <li><code>building_storeys</code> - number of building storeys</li>
+                                        <li><code>pool</code> - has pool</li>
+                                        <li><code>garage_parking</code> - has garage or parking</li>
+                                        <li><code>terrace_balcony</code> - has terrace or balcony</li>
+                                        <li><code>utility_rooms</code> - has utility rooms</li>
+                                    </ul>
+                                </td>
+                            </tr><!--features-->
+                            <tr>
+                                <td><strong>description</strong></td>
+                                <td>Object</td>
+                                <td>
+                                    <ul class="list-unstyled">
+                                        <li><code>title</code> - title for sale</li>
+                                        <li><code>rent_title</code> - title for rent</li>
+                                        <li><code>main_text</code> - full description</li>
+                                        <li><code>short_text</code> - short description for sale</li>
+                                        <li><code>rent_short_text</code> - short description for rent</li>
+                                    </ul>
+                                </td>
+                            </tr><!--description-->
+                            <tr>
+                                <td><strong>seo_fields</strong></td>
+                                <td>Object</td>
+                                <td>
+                                    SEO components:
+                                    <ul class="list-unstyled">
+                                        <li><code>focus_keyword</code> - keywords (<code>meta name="keywords"</code>)</li>
+                                        <li><code>seo_title</code> - page title</li>
+                                        <li><code>meta_description</code> - meta description (<code>meta name="description"</code>)</li>
+                                    </ul>
+                                </td>
+                            </tr><!--seo_fields-->
+                            <tr>
+                                <td><strong>property_rent</strong></td>
+                                <td>Object</td>
+                                <td>
+                                    <ul class="list-unstyled">
+                                        <li><code>persons_max</code> - maximum persons allowed</li>
+                                        <li><code>child_friendly</code> - child-friendly</li>
+                                        <li><code>pets_allowed</code> - pets allowed</li>
+                                        <li><code>long_rent</code> - has long-term rent</li>
+                                        <li><code>short_rent</code> - has short-term rent</li>
+                                        <li><code>rent_long</code> - see description <a href="#property-rent-long">below</a></li>
+                                        <li><code>rent_short</code> - see description <a href="#property-rent-short">below</a></li>
+                                        <li>
+                                            <code>slug_translations</code> - object with all available localizations of <strong class="text-danger">rent</strong> slug.<br>
+                                        </li>
+                                        <li><code>rent_title_translations</code> - object with all available localizations of <strong class="text-danger">rent</strong> title.</li>
+                                        <li>
+                                            <code>rent_short_text_translations</code> - object with all available localizations of <strong class="text-danger">rent</strong> short text.<br>
+                                            Example:
+                                            <pre class="prettyprint linenums=1">{
+    "ar" : {String}
+    "bg" : {String}
+    ...
+    "ind": {String}
+}</pre>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr><!--property_rent-->
+                            </tbody>
+                        </table><!--Description table-->
+                        <hr>
+                        <div>
+                            <h5 id="property-rent-long" class="h4">Property (full): Long rent</h5>
+                            <table class="table table-bordered table-striped mbn">
+                                <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                    <th>Description</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td><strong>id</strong></td>
+                                    <td>Number</td>
+                                    <td>Database record ID</td>
+                                </tr><!--id-->
+                                <tr>
+                                    <td><strong>property_rent_id</strong></td>
+                                    <td>Number</td>
+                                    <td>Database record ID</td>
+                                </tr><!--property_rent_id-->
+                                <tr>
+                                    <td><strong>monthly_rate</strong></td>
+                                    <td>Number</td>
+                                    <td>Monthly rental price</td>
+                                </tr><!--monthly_rate-->
+                                <tr>
+                                    <td><strong>currency_id</strong></td>
+                                    <td>Number</td>
+                                    <td>Monthly rental price currency ID</td>
+                                </tr><!--currency_id-->
+                                <tr>
+                                    <td><strong>currency_code</strong></td>
+                                    <td>String</td>
+                                    <td>Monthly rental price currency code</td>
+                                </tr><!--currency_code-->
+                                <tr>
+                                    <td><strong>sort_price</strong></td>
+                                    <td>Object</td>
+                                    <td>Described <a href="#property-rent-sort-price">here</a></td>
+                                </tr><!--sort_price-->
+                                <tr>
+                                    <td><strong>vat</strong></td>
+                                    <td>Number</td>
+                                    <td>the amount of VAT, %</td>
+                                </tr><!--vat-->
+                                <tr>
+                                    <td><strong>vat_in_price</strong></td>
+                                    <td>Boolena</td>
+                                    <td>VAT included in price</td>
+                                </tr><!--vat_in_price-->
+                                <tr>
+                                    <td><strong>deposit</strong></td>
+                                    <td>Number</td>
+                                    <td>the amount of deposit</td>
+                                </tr><!--deposit-->
+                                <tr>
+                                    <td><strong>deposit_type</strong></td>
+                                    <td>Number</td>
+                                    <td>
+                                        Deposit type, where:
+                                        <ul class="list-unstyled">
+                                            <li><code>1</code> - percentage (%)</li>
+                                            <li><code>2</code> - fixed amount (in currency of the rental price)</li>
+                                        </ul>
+                                    </td>
+                                </tr><!--deposit_type-->
+                                <tr>
+                                    <td><strong>deposit_on_demand</strong></td>
+                                    <td>Boolean</td>
+                                    <td>deposit on demand</td>
+                                </tr><!--deposit_on_demand-->
+                                <tr>
+                                    <td><strong>commission</strong></td>
+                                    <td>Number</td>
+                                    <td>the amount of commission</td>
+                                </tr><!--commission-->
+                                <tr>
+                                    <td><strong>commission_type</strong></td>
+                                    <td>Number</td>
+                                    <td>
+                                        Commission type, where:
+                                        <ul class="list-unstyled">
+                                            <li><code>1</code> - percentage (%)</li>
+                                            <li><code>2</code> - fixed amount (in currency of the rental price)</li>
+                                        </ul>
+                                    </td>
+                                </tr><!--commission_type-->
+                                <tr>
+                                    <td><strong>commission_on_demand</strong></td>
+                                    <td>Boolean</td>
+                                    <td>commission on demand</td>
+                                </tr><!--commission_on_demand-->
+                                </tbody>
+                            </table>
+                        </div><!--property-rent-long (full)-->
+                        <hr>
+                        <div>
+                            <h5 id="property-rent-short" class="h4">Property (full): Short rent</h5>
+                            <table class="table table-bordered table-striped mbn">
+                                <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                    <th>Description</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td><strong>id</strong></td>
+                                    <td>Number</td>
+                                    <td>Database record ID</td>
+                                </tr><!--id-->
+                                <tr>
+                                    <td><strong>property_rent_id</strong></td>
+                                    <td>Number</td>
+                                    <td>Database record ID</td>
+                                </tr><!--property_rent_id-->
+                                <tr>
+                                    <td><strong>min_day</strong></td>
+                                    <td>Boolean</td>
+                                    <td>Minimum stay - 1 day</td>
+                                </tr><!--min_day-->
+                                <tr>
+                                    <td><strong>ls_daily_rate</strong></td>
+                                    <td>Number</td>
+                                    <td>Low season daily rate. (When minimum stay is below 1 week)</td>
+                                </tr><!--ls_daily_rate-->
+                                <tr>
+                                    <td><strong>ms_daily_rate</strong></td>
+                                    <td>Number</td>
+                                    <td>Medium season daily rate (When minimum stay is below 1 week)</td>
+                                </tr><!--ms_daily_rate-->
+                                <tr>
+                                    <td><strong>hs_daily_rate</strong></td>
+                                    <td>Number</td>
+                                    <td>High season daily rate (When minimum stay is below 1 week)</td>
+                                </tr><!--hs_daily_rate-->
+                                <tr>
+                                    <td><strong>min_week</strong></td>
+                                    <td>Boolean</td>
+                                    <td>Minimum stay - 1 week</td>
+                                </tr><!--min_week-->
+                                <tr>
+                                    <td><strong>ls_weekly_rate</strong></td>
+                                    <td>Number</td>
+                                    <td>Low season daily rate. (When minimum stay is above 1 week)</td>
+                                </tr><!--ls_weekly_rate-->
+                                <tr>
+                                    <td><strong>ms_weekly_rate</strong></td>
+                                    <td>Number</td>
+                                    <td>Medium season daily rate (When minimum stay is above 1 week)</td>
+                                </tr><!--ms_weekly_rate-->
+                                <tr>
+                                    <td><strong>hs_weekly_rate</strong></td>
+                                    <td>Number</td>
+                                    <td>High season daily rate (When minimum stay is above 1 week)</td>
+                                </tr><!--hs_weekly_rate-->
+                                <tr>
+                                    <td><strong>min_month</strong></td>
+                                    <td>Boolean</td>
+                                    <td>Minimum stay - 1 month</td>
+                                </tr><!--min_month-->
+                                <tr>
+                                    <td><strong>ls_monthly_rate</strong></td>
+                                    <td>Number</td>
+                                    <td>Low season daily rate. (When minimum stay is above 1 month)</td>
+                                </tr><!--ls_monthly_rate-->
+                                <tr>
+                                    <td><strong>ms_monthly_rate</strong></td>
+                                    <td>Number</td>
+                                    <td>Medium season daily rate (When minimum stay is above 1 month)</td>
+                                </tr><!--ms_monthly_rate-->
+                                <tr>
+                                    <td><strong>hs_monthly_rate</strong></td>
+                                    <td>Number</td>
+                                    <td>High season daily rate (When minimum stay is above 1 month)</td>
+                                </tr><!--hs_monthly_rate-->
+                                <tr>
+                                    <td><strong>currency_id</strong></td>
+                                    <td>Number</td>
+                                    <td>Rental price currency ID</td>
+                                </tr><!--currency_id-->
+                                <tr>
+                                    <td><strong>currency_code</strong></td>
+                                    <td>String</td>
+                                    <td>Rental price currency code</td>
+                                </tr><!--currency_code-->
+                                <tr>
+                                    <td><strong>sort_price</strong></td>
+                                    <td>Object</td>
+                                    <td>Described <a href="#property-rent-sort-price">here</a></td>
+                                </tr><!--sort_price-->
+                                <tr>
+                                    <td><strong>vat</strong></td>
+                                    <td>Number</td>
+                                    <td>the amount of VAT, %</td>
+                                </tr><!--vat-->
+                                <tr>
+                                    <td><strong>vat_in_price</strong></td>
+                                    <td>Boolena</td>
+                                    <td>VAT included in price</td>
+                                </tr><!--vat_in_price-->
+                                <tr>
+                                    <td><strong>deposit</strong></td>
+                                    <td>Number</td>
+                                    <td>the amount of deposit</td>
+                                </tr><!--deposit-->
+                                <tr>
+                                    <td><strong>deposit_type</strong></td>
+                                    <td>Number</td>
+                                    <td>
+                                        Deposit type, where:
+                                        <ul class="list-unstyled">
+                                            <li><code>1</code> - percentage (%)</li>
+                                            <li><code>2</code> - fixed amount (in currency of the rental price)</li>
+                                        </ul>
+                                    </td>
+                                </tr><!--deposit_type-->
+                                <tr>
+                                    <td><strong>deposit_on_demand</strong></td>
+                                    <td>Boolean</td>
+                                    <td>deposit on demand</td>
+                                </tr><!--deposit_on_demand-->
+                                <tr>
+                                    <td><strong>commission</strong></td>
+                                    <td>Number</td>
+                                    <td>the amount of commission</td>
+                                </tr><!--commission-->
+                                <tr>
+                                    <td><strong>commission_type</strong></td>
+                                    <td>Number</td>
+                                    <td>
+                                        Commission type, where:
+                                        <ul class="list-unstyled">
+                                            <li><code>1</code> - percentage (%)</li>
+                                            <li><code>2</code> - fixed amount (in currency of the rental price)</li>
+                                        </ul>
+                                    </td>
+                                </tr><!--commission_type-->
+                                <tr>
+                                    <td><strong>commission_on_demand</strong></td>
+                                    <td>Boolean</td>
+                                    <td>commission on demand</td>
+                                </tr><!--commission_on_demand-->
+                                </tbody>
+                            </table>
+                        </div><!--property-rent-short (full)-->
+                        <hr>
+                        <div>
+                            <h5 id="property-sale-price" class="h4">Property: Sale price</h5>
+                            <table class="table table-bordered table-striped mbn">
+                                <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                    <th>Description</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td><strong>min</strong></td>
+                                    <td>Number</td>
+                                    <td>minimum price</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>max</strong></td>
+                                    <td>Number</td>
+                                    <td>maximum price</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>conv_min</strong></td>
+                                    <td>Number</td>
+                                    <td>minimum price, converted to currency sent in request</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>conv_max</strong></td>
+                                    <td>Number</td>
+                                    <td>maximum price, converted to currency sent in request</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>euro_min</strong></td>
+                                    <td>Number</td>
+                                    <td>minimum price, converted to EUR</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>euro_max</strong></td>
+                                    <td>Number</td>
+                                    <td>maximum price, converted to EUR</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>on_demand</strong></td>
+                                    <td>Boolean</td>
+                                    <td><a href="#definitions">price on demand</a></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>currency_id</strong></td>
+                                    <td>Number</td>
+                                    <td>Original price currency id.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>currency</strong></td>
+                                    <td>String</td>
+                                    <td>Original price currency code (<a href="https://en.wikipedia.org/wiki/ISO_4217#Active_codes">ISO_4217</a>).</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div><!--property-sale-price-->
+                        <hr>
+                        <div>
+                            <h5 id="property-rent-sort-price" class="h4">Property: Rent price (sort_price)</h5>
+                            <table class="table table-bordered table-striped mbn">
+                                <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                    <th>Description</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td><strong>currency_code</strong></td>
+                                    <td>String</td>
+                                    <td>Original price <a href="#definitions">currency code</a></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>currency_id</strong></td>
+                                    <td>Number</td>
+                                    <td>Original price system currency id</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>day</strong></td>
+                                    <td>Number</td>
+                                    <td>
+                                        <strong class="text-danger">Short-term rent only</strong><br>
+                                        daily rent price
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>euro_day</strong></td>
+                                    <td>Number</td>
+                                    <td>
+                                        <strong class="text-danger">Short-term rent only</strong><br>
+                                        daily rent price converted to EUR
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>conv_day</strong></td>
+                                    <td>Number</td>
+                                    <td>
+                                        <strong class="text-danger">Short-term rent only</strong><br>
+                                        daily rent price, converted to currency sent in request
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>month</strong></td>
+                                    <td>Number</td>
+                                    <td>
+                                        <strong class="text-danger">Long-term rent only</strong><br>
+                                        monthly rent price
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>euro_month</strong></td>
+                                    <td>Number</td>
+                                    <td>
+                                        <strong class="text-danger">Long-term rent only</strong><br>
+                                        monthly rent price converted to EUR
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>conv_month</strong></td>
+                                    <td>Number</td>
+                                    <td>
+                                        <strong class="text-danger">Long-term rent only</strong><br>
+                                        monthly rent price, converted to currency sent in request
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>on_demand</strong></td>
+                                    <td>Boolean</td>
+                                    <td><a href="#definitions">price on demand</a></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div><!--property-rent-sort-price-->
+                    </div>
+                </div><!--Property object type (full)-->
+
+                <div class="panel panel-default">
+                    <h3 id="currency" class="panel-heading no-margin">Currency</h3>
+                    <div class="panel-body">
+                        <pre class="prettyprint linenums=1">
+{
+    id           : {Number},
+    code         : {String},
+    currency_rate: {
+        rate: {Number}
+    },
+    symbol       : {String},
+    created_at   : {String},
+    updated_at   : {String}
+}</pre>
+                        <table class="table table-bordered table-striped mbn">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>Description</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td><strong>id</strong></td>
+                                <td>Number</td>
+                                <td>ID</td>
+                            </tr>
+                            <tr>
+                                <td><strong>code</strong></td>
+                                <td>String</td>
+                                <td>Code (<a href="https://en.wikipedia.org/wiki/ISO_4217#Active_codes" target="_blank">ISO_4217</a>)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>currency_rate.rate</strong></td>
+                                <td>Number</td>
+                                <td>Currency rate relatively to USD.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>symbol</strong></td>
+                                <td>String</td>
+                                <td>Symbol</td>
+                            </tr>
+                            <tr>
+                                <td><strong>created_at</strong></td>
+                                <td>String</td>
+                                <td>Creation <a href="https://www.w3.org/TR/NOTE-datetime" target="_blank">timestamp</a>.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>updated_at</strong></td>
+                                <td>String</td>
+                                <td>Update <a href="https://www.w3.org/TR/NOTE-datetime" target="_blank">timestamp</a>.</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div><!--Currency type-->
+
+                <br>
+
+                <h2>Other</h2>
+
+                <div class="panel panel-default">
+                    <h4 id="locales-list" class="panel-heading no-margin">Locales</h4>
+                    <ul class="list-group">
+                        <li class="list-group-item">"en" - "English"</li>
+                        <li class="list-group-item">"fr" - "Français"</li>
+                        <li class="list-group-item">"de" - "Deutsch"</li>
+                        <li class="list-group-item">"ru" - "Русский"</li>
+                        <li class="list-group-item">"cs" - "Čeština"</li>
+                        <li class="list-group-item">"zh" - "简体中文"</li>
+                        <li class="list-group-item">"da" - "Dansk"</li>
+                        <li class="list-group-item">"nl" - "Nederlands"</li>
+                        <li class="list-group-item">"it" - "Italiano"</li>
+                        <li class="list-group-item">"ja" - "日本語"</li>
+                        <li class="list-group-item">"es" - "Español"</li>
+                        <li class="list-group-item">"ar" - "العربية"</li>
+                        <li class="list-group-item">"he" - "עברית"</li>
+                        <li class="list-group-item">"hi" - "हिन्दी"</li>
+                        <li class="list-group-item">"ko" - "한국어"</li>
+                        <li class="list-group-item">"nb" - "Norwegian Bokmål"</li>
+                        <li class="list-group-item">"pt" - "Português"</li>
+                        <li class="list-group-item">"sv" - "Svenska"</li>
+                        <li class="list-group-item">"th" - "ไทย"</li>
+                        <li class="list-group-item">"tr" - "Türkçe"</li>
+                        <li class="list-group-item">"ur" - "Urdu"</li>
+                        <li class="list-group-item">"vi" - "Vietnamese"</li>
+                        <li class="list-group-item">"bg" - "Български език"</li>
+                        <li class="list-group-item">"pl" - "Polszczyzna"</li>
+                        <li class="list-group-item">"lv" - "Latviešu valoda"</li>
+                        <li class="list-group-item">"hr" - "Hrvatski jezik"</li>
+                        <li class="list-group-item">"et" - "Eesti"</li>
+                        <li class="list-group-item">"is" - "Íslenska"</li>
+                        <li class="list-group-item">"sr" - "Српски језик"</li>
+                        <li class="list-group-item">"hu" - "Magyar"</li>
+                        <li class="list-group-item">"ro" - "Limba română"</li>
+                        <li class="list-group-item">"lt" - "Lietuvių kalba"</li>
+                        <li class="list-group-item">"uk" - "Українська"</li>
+                        <li class="list-group-item">"sk" - "Slovenčina"</li>
+                        <li class="list-group-item">"sl" - "Slovenščina"</li>
+                        <li class="list-group-item">"el" - "ελληνικά"</li>
+                        <li class="list-group-item">"ind" - "Bahasa Indonesia"</li>
+                        <li class="list-group-item">"fil" - "Filipino"</li>
+                        <li class="list-group-item">"ca" - "Català"</li>
+                        <li class="list-group-item">"fi" - "Suomi"</li>
+                    </ul>
+                </div><!--Locales list-->
+            </div>
+
+            <div class="col-xs-4 sidebar" id="navbar-spy">
+                <nav role="navigation" class="affix">
+                    <ul class="nav list-unstiled">
+                        <li><a href="#definitions">Definitions and references</a></li>
+                        <li><a href="#initialization">Initialization</a></li>
+                        <li><strong>Available methods</strong></li>
+                        <li>
+                            <a href="#getProperties">getProperties</a>
+                            <ul class="nav">
+                                <li><a href="#options-info">options</a></li>
+                                <li><a href="#callback-info-one">callback</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#getPropertyById">getPropertyById</a>
+                            <ul class="nav">
+                                <li><a href="#m2-id">id</a></li>
+                                <li><a href="#m2-options">options</a></li>
+                                <li><a href="#m2-callback">callback</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#getCurrencies">getCurrencies</a>
+                            <ul class="nav">
+                                <li><a href="#m3-callback">callback</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#set-locale">setLocale</a>
+                        </li>
+                        <li><strong>Types</strong></li>
+                        <li>
+                            <a href="#property-object-short">Property (short)</a>
+                        </li>
+                        <li>
+                            <a href="#property-object-full">Property (full)</a>
+                            <ul class="nav">
+                                <li><a href="#property-rent-long">Rent long</a></li>
+                                <li><a href="#property-rent-short">Rent short</a></li>
+                                <li><a href="#property-sale-price">Sale price</a></li>
+                                <li><a href="#property-rent-sort-price">Rent price (sort_price)</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#currency">Currency</a></li>
+                        <li><strong>Other</strong></li>
+                        <li><a href="#locales-list">Locales</a></li>
+                    </ul>
+                </nav>
+            </div><!--Right sidebar-->
+        </div>
+    </div>
+</div>
+
+<script
+        src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?skin=sons-of-obsidian"></script>
+</body>
+</html>
