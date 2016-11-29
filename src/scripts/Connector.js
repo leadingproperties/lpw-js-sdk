@@ -50,6 +50,19 @@ Connector.prototype.readCurrencies = function(lpwCallback){
 };
 
 /**
+ * Sends request to PDF controller
+ * @param {number} id - property id
+ * @param {boolean} forRent - request pdf with rent or sale data
+ * @param {string} locale - pdf language
+ * @param {function} lpwCallback
+ *
+ * @since 1.0.0
+ */
+Connector.prototype.readPDF = function(id, forRent, locale, lpwCallback){
+  this._defaultRequest(this.apiPath + '/' + locale + '/pdf/' + id + (forRent ? '?for_rent=true' : ''), 'GET', null, lpwCallback);
+};
+
+/**
  * Default requester
  * @param {String} url - request url
  * @param {String} method - HTTP ('GET', 'POST', etc.) method
