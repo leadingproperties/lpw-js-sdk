@@ -73,6 +73,17 @@ Connector.prototype.readTotalCounters = function(lpwCallback){
 };
 
 /**
+ * Sends request to one of geographical points controllers
+ * @param {string} endPoint - last part of geographical points controller path
+ * @param {function} lpwCallback
+ *
+ * @since 1.0.0
+ */
+Connector.prototype.readGeoPionts = function(endPoint, lpwCallback){
+  this._defaultRequest(this.apiPath + '/property_objects/' + endPoint, 'GET', null, lpwCallback);
+};
+
+/**
  * Default requester
  * @param {String} url - request url
  * @param {String} method - HTTP ('GET', 'POST', etc.) method

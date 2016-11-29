@@ -232,4 +232,45 @@ describe('Connector class', function(){
       callback.args[0][0].should.be.instanceOf(XMLHttpRequest);
     });
   });
+
+  describe('#readGeoPionts()', function(){
+    var connector,
+        xhr,
+        requests,
+        fakeResponseBodySuccess = {
+          points: []
+        };
+
+
+    beforeEach(function(){
+      connector = new Connector('etd4xUyDUMsa47sQBwNB');
+      xhr = sinon.useFakeXMLHttpRequest();
+      requests = [];
+      xhr.onCreate = function(req){ requests.push(req); };
+    });
+
+    afterEach(function(){
+      xhr.restore();
+    });
+
+    it('should exist', function(){
+      should.exist(connector.readGeoPionts);
+    });
+
+    it('should make GET request and call callback with XMLHttpRequest as first argument', function(){
+      var callback = sinon.spy();
+      connector.readGeoPionts('rent_geo_points', callback);
+      requests[0].respond(
+        200,
+        {"Content-Type": "application/json"},
+        JSON.stringify(fakeResponseBodySuccess)
+      );
+      callback.calledOnce.should.be.true;
+      callback.args.length.should.be.equal(1);
+      callback.args[0][0].responseText.should.be.eql(JSON.stringify(fakeResponseBodySuccess));
+      callback.args[0][0].method.should.be.equal('GET');
+      callback.args[0][0].url.should.be.equal(connector.apiPath + '/property_objects/rent_geo_points');
+      callback.args[0][0].should.be.instanceOf(XMLHttpRequest);
+    });
+  });
 });

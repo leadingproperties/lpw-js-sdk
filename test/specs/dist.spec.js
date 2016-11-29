@@ -102,5 +102,20 @@ describe('Build test: LPW', function(){
         done();
       })
     });
+  });
+
+  describe('#getGeoPoints()', function(){
+    it('should exist', function(){
+      should.exist(lpw.getGeoPoints);
+    });
+
+    it('should call user\'s callback with structured answer', function(done){
+      lpw.getGeoPoints('sale', function(answer){
+        answer.data.should.be.an('object');
+        answer.data.should.have.ownProperty('points');
+        answer.data.points.should.be.an('array');
+        done();
+      })
+    });
   })
 });

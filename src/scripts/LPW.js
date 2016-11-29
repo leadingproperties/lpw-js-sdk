@@ -138,7 +138,46 @@ LPW.prototype.getPDF = function(id, options, userCallback){
  * @since 1.0.0
  */
 LPW.prototype.getTotalCounters = function(userCallback){
+  if(typeof userCallback !== 'function'){
+    throw new TypeError('LPW.getPDF: callback is not a function');
+  }
+
   this.connector.readTotalCounters(
+    this.defaultCallback.bind(this, userCallback)
+  );
+};
+
+/**
+ * Gets geographical points
+ * @param {string} type - points for a property offer type (sale, rent or commercial)
+ * @param {userCallback} userCallback
+ *
+ * @since 1.0.0
+ */
+LPW.prototype.getGeoPoints = function(type, userCallback){
+  if(typeof userCallback !== 'function'){
+    throw new TypeError('LPW.getPDF: callback is not a function');
+  }
+
+  if(type !== 'sale' || type !== 'sale' || type !== 'commercial'){
+    this.logger.log('LPW.getGeoPoints: type is not one of: "sale", "rent" or "commercial". "sale" used by default.')
+  }
+
+  var endPoint;
+  switch (type){
+    case 'rent':
+      endPoint = 'rent_geo_points';
+      break;
+    case 'commercial':
+      endPoint = 'invest_geo_points';
+      break;
+    default:
+      endPoint = 'geo_points';
+      break;
+  }
+
+  this.connector.readGeoPionts(
+    endPoint,
     this.defaultCallback.bind(this, userCallback)
   );
 };
