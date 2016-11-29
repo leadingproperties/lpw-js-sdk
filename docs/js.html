@@ -845,7 +845,7 @@
                                 <td>callback</td>
                                 <td>Function</td>
                                 <td>-</td>
-                                <td>Function called when request is complete. Description is <a href="#get-pdf-callback">below</a></td>
+                                <td>Function called when request is complete. Description is <a href="#getTotalCounters-callback">below</a></td>
                             </tr>
                             </tbody>
                         </table>
@@ -906,6 +906,97 @@
                         </div><!--getTotalCounters callback-->
                     </div>
                 </div><!--getTotalCounters-->
+
+                <div class="panel panel-default">
+                    <h3 id="getGeoPoints" class="panel-heading no-margin">getGeoPoints</h3>
+                    <div class="panel-body">
+                        <div class="lead">
+                            Allows to receive geographical points of properties locations.
+                        </div>
+                        <pre class="prettyprint linenums=1">lpw.getGeoPoints(type, callback);</pre>
+                        <h3>Parameters</h3>
+                        <table class="table table-bordered mbn">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>Default</th>
+                                <th>Description</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>type</td>
+                                <td>String</td>
+                                <td><code>'sale'</code></td>
+                                <td>
+                                    Property offer type.<br>
+                                    Allowed values:
+                                    <ul class="list-unstyled">
+                                        <li><code>sale</code> - properties for sale</li>
+                                        <li><code>rent</code> - properties for rent</li>
+                                        <li><code>commercial</code> - commercial properties</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>callback</td>
+                                <td>Function</td>
+                                <td>-</td>
+                                <td>Function called when request is complete. Description is <a href="#getGeoPoints-callback">below</a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <hr>
+
+                        <div>
+                            <h4 id="getGeoPoints-callback">Callback</h4>
+                            <p>It will receive answer as first argument. Answer is an object with these properties:</p>
+                            <pre class="prettyprint linenums=1">
+{
+    data: {
+        points: {Array}
+    },
+    status: {Number}
+    statusText: {String}
+}</pre>
+                            <table class="table table-bordered mbn">
+                                <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                    <th>Description</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>data</td>
+                                    <td>Object</td>
+                                    <td>
+                                        Payload object, where: <br>
+                                        <code>points</code> - array of geographical points <br>
+                                        Geographical point description is <a href="#geo-point">here</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>status</td>
+                                    <td>Number</td>
+                                    <td>
+                                        <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/status" target="_blank">XMLHttpRequest.status</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>statusText</td>
+                                    <td>String</td>
+                                    <td>
+                                        <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/statusText" target="_blank">XMLHttpRequest.statusText</a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div><!--getGeoPoints callback-->
+                    </div>
+                </div><!--getGeoPoints-->
 
                 <br>
 
@@ -1874,14 +1965,14 @@
                     <div class="panel-body">
                         <pre class="prettyprint linenums=1">
 {
-    id           : {Number},
-    code         : {String},
-    currency_rate: {
-        rate: {Number}
+    "id"           : {Number},
+    "code"         : {String},
+    "currency_rate": {
+        "rate": {Number}
     },
-    symbol       : {String},
-    created_at   : {String},
-    updated_at   : {String}
+    "symbol"       : {String},
+    "created_at"   : {String},
+    "updated_at"   : {String}
 }</pre>
                         <table class="table table-bordered table-striped mbn">
                             <thead>
@@ -1926,6 +2017,52 @@
                         </table>
                     </div>
                 </div><!--Currency type-->
+
+                <div class="panel panel-default">
+                    <h3 id="geo-point" class="panel-heading no-margin">Geographical point</h3>
+                    <div class="panel-body">
+                        <pre class="prettyprint linenums=1">{
+    "id": {Number},
+    "location": {
+        "lat": {Number},
+        "lon": {Number},
+    },
+    "place_id": {String}
+}</pre>
+                        <table class="table table-bordered table-striped mbn">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>Description</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td><strong>id</strong></td>
+                                <td>Number</td>
+                                <td>Property object ID</td>
+                            </tr><!--id-->
+                            <tr>
+                                <td><strong>location</strong></td>
+                                <td>Object</td>
+                                <td>
+                                    Geographical point, where:
+                                    <ul class="list-unstyled">
+                                        <li><code>lat</code> - latitude</li>
+                                        <li><code>lon</code> - longitude</li>
+                                    </ul>
+                                </td>
+                            </tr><!--location-->
+                            <tr>
+                                <td><strong>place_id</strong></td>
+                                <td>Object</td>
+                                <td>Google maps <a href="https://developers.google.com/places/place-id" target="_blank">place ID</a></td>
+                            </tr><!--place_id-->
+                            </tbody>
+                        </table>
+                    </div>
+                </div><!--Geographical point type-->
 
                 <br>
 
@@ -2018,6 +2155,12 @@
                                 <li><a href="#getTotalCounters-callback">callback</a></li>
                             </ul>
                         </li>
+                        <li>
+                            <a href="#getGeoPoints">getGeoPoints</a>
+                            <ul class="nav">
+                                <li><a href="#getGeoPoints-callback">callback</a></li>
+                            </ul>
+                        </li>
                         <li><strong>Types</strong></li>
                         <li>
                             <a href="#property-object-short">Property (short)</a>
@@ -2032,6 +2175,7 @@
                             </ul>
                         </li>
                         <li><a href="#currency">Currency</a></li>
+                        <li><a href="#geo-point">Geographical point</a></li>
                         <li><strong>Other</strong></li>
                         <li><a href="#locales-list">Locales</a></li>
                     </ul>
