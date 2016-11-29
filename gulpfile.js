@@ -46,12 +46,12 @@ gulp.task('watch', function() {
   gulp.watch(paths.scripts, ['scripts']);
 });
 
-gulp.task('test-lib', function (done) {
+gulp.task('test-dist', function (done) {
   new Server({
     configFile: __dirname + '/karma-dist.conf.js'
   }, done).start();
 });
 
-gulp.task('build', gulpSequence('scripts', 'uglify', 'test-lib'));
+gulp.task('build', gulpSequence('scripts', 'uglify', 'test-dist'));
 
 gulp.task('default', ['build']);
