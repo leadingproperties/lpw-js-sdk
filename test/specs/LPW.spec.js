@@ -153,6 +153,10 @@ describe('LPW class', function(){
       should.exist(lpw.setLocale);
     });
 
+    it('should throw TypeError if locale is not string', function(){
+      should.Throw(function(){lpw.setLocale()}, TypeError);
+    });
+
     it('should set locale', function(){
       lpw.setLocale('ru');
       lpw.locale.should.be.equal('ru');
