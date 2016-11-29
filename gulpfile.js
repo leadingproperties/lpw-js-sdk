@@ -8,6 +8,15 @@ var gulpSequence = require('gulp-sequence');
 var rename = require("gulp-rename");
 var insert = require('gulp-insert');
 var Server = require('karma').Server;
+var gzip = require("gulp-gzip");
+var s3 = require("gulp-s3-ls");
+var gzipOptions = {gzipOptions: {level: 9}};
+var s3Options = {
+  headers: {
+    'Cache-Control'   : 'max-age=315360000, no-transform, public'
+  },
+  uploadPath: "/"
+};
 
 var packageData = require('./package.json');
 
@@ -45,6 +54,24 @@ gulp.task('uglify', function() {
 gulp.task('watch', function() {
   gulp.watch(paths.scripts, ['scripts']);
 });
+
+gulp.task('deploy', function(){
+    var aws = require('./aws.json'),
+        versionSplit = packageData.version.split(/[.-]/);
+    if(!versionSplit[3]){
+      s3Options.uploadPath = '/' + packageData.version + '/';
+      return gulp.src(paths.dist + '**')
+        .pipe(
+          gzip(gzipOptions)
+        )
+        .pipe(
+          s3(aws, s3Options)
+        );
+    }else{
+      console.log('Wait! It\'s: `' + versionSplit[3] + '`!');
+    }
+  }
+);
 
 gulp.task('test-dist', function (done) {
   new Server({

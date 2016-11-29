@@ -2,7 +2,7 @@
   "name": "lpw-js-sdk",
   "version": "1.0.0-beta.1",
   "description": "LPW Javascript SDK",
-  "main": "index.js",
+  "main": "dist/sdk.js",
   "repository": "lpw-js-sdk",
   "scripts": {
     "test": "karma start karma.conf.js"
@@ -14,9 +14,11 @@
     "del": "^2.2.2",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.0",
+    "gulp-gzip": "^1.4.0",
     "gulp-iife": "^0.3.0",
     "gulp-insert": "^0.5.0",
     "gulp-rename": "^1.2.2",
+    "gulp-s3-ls": "^1.0.4",
     "gulp-sequence": "^0.4.6",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-uglify": "^2.0.0",
