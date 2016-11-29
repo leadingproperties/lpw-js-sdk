@@ -152,7 +152,7 @@
                         </div>
 
                     </div>
-                </div>
+                </div><!--Definitions and references-->
 
                 <div class="panel panel-default">
                     <h3 id="initialization" class="panel-heading no-margin">Initialization</h3>
@@ -201,11 +201,13 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
+                </div><!--Initialization-->
 
                 <br>
 
                 <h2>Available methods</h2>
+
+                <br>
 
                 <div class="panel panel-default">
                     <h3 id="getProperties" class="panel-heading no-margin">getProperties</h3>
@@ -493,7 +495,6 @@
                                 <tr>
                                     <th>Name</th>
                                     <th>Type</th>
-                                    <th>Default</th>
                                     <th>Description</th>
                                 </tr>
                                 </thead>
@@ -501,7 +502,6 @@
                                 <tr>
                                     <td>data</td>
                                     <td>Object</td>
-                                    <td>-</td>
                                     <td>
                                         Payload object, where: <br>
                                         <ul class="list-unstyled">
@@ -514,7 +514,6 @@
                                 <tr>
                                     <td>status</td>
                                     <td>Number</td>
-                                    <td>-</td>
                                     <td>
                                         <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/status" target="_blank">XMLHttpRequest.status</a>
                                     </td>
@@ -522,7 +521,6 @@
                                 <tr>
                                     <td>statusText</td>
                                     <td>String</td>
-                                    <td>-</td>
                                     <td>
                                         <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/statusText" target="_blank">XMLHttpRequest.statusText</a>
                                     </td>
@@ -559,7 +557,12 @@
                                 <td>options</td>
                                 <td>Object</td>
                                 <td>-</td>
-                                <td>Request config options. See full description <a href="#m2-options">below</a></td>
+                                <td>
+                                    <code>locale {String}</code> - Language of property data (title, description, etc.).<br>
+                                    If not specified - locale of constructor will be used.<br>
+                                    List of available locales depends on your settings in mylwp.io.<br>
+                                    Full list of available locales can be found <a href="#locales-list">here</a>
+                                </td>
                             </tr>
                             <tr>
                                 <td>callback</td>
@@ -569,43 +572,7 @@
                             </tr>
                             </tbody>
                         </table>
-
                         <hr>
-
-                        <div>
-                            <h4 id="m2-id">Id</h4>
-                            <p>Id of the property.</p>
-                        </div>
-
-                        <hr>
-
-                        <div>
-                            <h4 id="m2-options">Options</h4>
-                            <p>List of available properties:</p>
-                            <table class="table table-bordered mbn">
-                                <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Type</th>
-                                    <th>Default</th>
-                                    <th>Description</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>locale</td>
-                                    <td>String</td>
-                                    <td><code>'en'</code></td>
-                                    <td>Language of property data (title, description, etc.).<br>
-                                        List of available locales depends on your settings in mylwp.io.<br>
-                                        Full list of available locales can be found <a href="#locales-list">here</a></td>
-                                </tr><!--locale-->
-                                </tbody>
-                            </table>
-                        </div><!--getPropertyById options-->
-
-                        <hr>
-
                         <div>
                             <h4 id="m2-callback">Callback</h4>
                             <p>It will receive answer as first argument. Answer is an object with these properties:</p>
@@ -624,7 +591,6 @@
                                 <tr>
                                     <th>Name</th>
                                     <th>Type</th>
-                                    <th>Default</th>
                                     <th>Description</th>
                                 </tr>
                                 </thead>
@@ -632,7 +598,6 @@
                                 <tr>
                                     <td>data</td>
                                     <td>Object</td>
-                                    <td>-</td>
                                     <td>
                                         Payload object, where: <br>
                                         <ul class="list-unstyled">
@@ -643,7 +608,6 @@
                                 <tr>
                                     <td>status</td>
                                     <td>Number</td>
-                                    <td>-</td>
                                     <td>
                                         <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/status" target="_blank">XMLHttpRequest.status</a>
                                     </td>
@@ -651,7 +615,6 @@
                                 <tr>
                                     <td>statusText</td>
                                     <td>String</td>
-                                    <td>-</td>
                                     <td>
                                         <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/statusText" target="_blank">XMLHttpRequest.statusText</a>
                                     </td>
@@ -703,7 +666,6 @@
                                 <tr>
                                     <th>Name</th>
                                     <th>Type</th>
-                                    <th>Default</th>
                                     <th>Description</th>
                                 </tr>
                                 </thead>
@@ -711,7 +673,6 @@
                                 <tr>
                                     <td>data</td>
                                     <td>Object</td>
-                                    <td>-</td>
                                     <td>
                                         Payload object, where: <br>
                                         <ul class="list-unstyled">
@@ -722,7 +683,6 @@
                                 <tr>
                                     <td>status</td>
                                     <td>Number</td>
-                                    <td>-</td>
                                     <td>
                                         <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/status" target="_blank">XMLHttpRequest.status</a>
                                     </td>
@@ -730,7 +690,6 @@
                                 <tr>
                                     <td>statusText</td>
                                     <td>String</td>
-                                    <td>-</td>
                                     <td>
                                         <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/statusText" target="_blank">XMLHttpRequest.statusText</a>
                                     </td>
@@ -767,13 +726,111 @@
                             </tr>
                             </tbody>
                         </table>
-                        <hr>
                     </div>
                 </div><!--setLocale-->
+
+                <div class="panel panel-default">
+                    <h3 id="get-pdf" class="panel-heading no-margin">getPDF</h3>
+                    <div class="panel-body">
+                        <pre class="prettyprint linenums=1">lpw.getPDF(propertyId, options, callback);</pre>
+                        <h3>Parameters</h3>
+                        <table class="table table-bordered mbn">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>Default</th>
+                                <th>Description</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>propertyId</td>
+                                <td>Number</td>
+                                <td>-</td>
+                                <td>Property ID</td>
+                            </tr>
+                            <tr>
+                                <td>options</td>
+                                <td>Object</td>
+                                <td>-</td>
+                                <td>
+                                    <ul class="list-unstyled">
+                                        <li>
+                                            <code>forRent {Boolean}</code> - Get PDF with information about property for rent (if available). Information for sale is default.
+                                        </li>
+                                        <li>
+                                            <code>locale {String}</code> - PDF locale. If not specified - locale of constructor will be used.
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>callback</td>
+                                <td>Function</td>
+                                <td>-</td>
+                                <td>Function called when request is complete. Description is <a href="#get-pdf-callback">below</a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <hr>
+
+                        <div>
+                            <h4 id="get-pdf-callback">Callback</h4>
+                            <p>It will receive answer as first argument. Answer is an object with these properties:</p>
+                            <pre class="prettyprint linenums=1">
+{
+    data: {
+        pdf_path: {String}
+    },
+    status: {Number}
+    statusText: {String}
+}</pre>
+                            <table class="table table-bordered mbn">
+                                <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                    <th>Description</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>data</td>
+                                    <td><span class="text-success">Object</span> | <span class="text-danger">Null</span></td>
+                                    <td>
+                                        If answer received <strong class="text-success">successfully</strong>:
+                                        <ul class="list-unstyled">
+                                            <li><code>pdf_path {String}</code> - URL to PDF file</li>
+                                        </ul>
+                                        If <strong class="text-danger">fails</strong> - <code>data</code> will be <code>null</code>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>status</td>
+                                    <td>Number</td>
+                                    <td>
+                                        <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/status" target="_blank">XMLHttpRequest.status</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>statusText</td>
+                                    <td>String</td>
+                                    <td>
+                                        <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/statusText" target="_blank">XMLHttpRequest.statusText</a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div><!--getPDF callback-->
+                    </div>
+                </div><!--getPDF-->
 
                 <br>
 
                 <h2>Types</h2>
+
+                <br>
 
                 <div class="panel panel-default">
                     <h3 id="property-object-short" class="panel-heading no-margin">Property (short)</h3>
@@ -1856,8 +1913,6 @@
                         <li>
                             <a href="#getPropertyById">getPropertyById</a>
                             <ul class="nav">
-                                <li><a href="#m2-id">id</a></li>
-                                <li><a href="#m2-options">options</a></li>
                                 <li><a href="#m2-callback">callback</a></li>
                             </ul>
                         </li>
@@ -1869,6 +1924,12 @@
                         </li>
                         <li>
                             <a href="#set-locale">setLocale</a>
+                        </li>
+                        <li>
+                            <a href="#get-pdf">getPDF</a>
+                            <ul class="nav">
+                                <li><a href="#get-pdf-callback">callback</a></li>
+                            </ul>
                         </li>
                         <li><strong>Types</strong></li>
                         <li>
