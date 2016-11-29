@@ -1,3 +1,4 @@
+var pdf;
 /**
  * Main LPW class
  * @param {string} token - API user token
@@ -14,6 +15,8 @@ function LPW(token, options){
   this.helper = new Helper();
   this.logger = new Logger(this.debugEnabled);
   this.optionsParser = new OptionsParser(this.helper, this.logger);
+
+  pdf = new PDF(this.connector);
 }
 
 /**
@@ -24,9 +27,12 @@ function LPW(token, options){
  * @since 1.0.0
  */
 LPW.prototype.getProperties = function(options, userCallback){
-  if(typeof userCallback !== 'function' && typeof options !== 'function'){
-    this.logger.log('getProperties: Callback required.');
-    return;
+  if(!userCallback || typeof userCallback !== 'function'){
+    throw new TypeError('LPW.getProperties: callback is not a function');
+  }
+
+  if(!this.helper.isObject(options)){
+    options = {};
   }
 
   if(!options.locale){
@@ -51,16 +57,14 @@ LPW.prototype.getPropertyById = function(id, options, userCallback){
   id = parseInt(id, 10);
 
   if(typeof userCallback !== 'function'){
-    this.logger.log('getPropertyById: Callback required.');
-    return;
+    throw new TypeError('LPW.getPropertyById: callback is not a function');
   }
 
   if(isNaN(id)){
-    this.logger.log('getPropertyById: ID is not a number');
-    return;
+    throw new TypeError('LPW.getPropertyById: ID is not a number');
   }
 
-  if(!options){
+  if(!this.helper.isObject(options)){
     options = {};
   }
 
@@ -89,16 +93,42 @@ LPW.prototype.getCurrencies = function(userCallback){
 
 /**
  * Sets default locale
- * @param {string} locale - locale string ISO 639-1 (https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes#Partial_ISO_639_table)
+ * @param {string} locale - locale string ISO 639-1 {@link https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes#Partial_ISO_639_table|Wiki}
  *
  * @since 1.0.0
  */
 LPW.prototype.setLocale = function(locale){
   if(typeof locale !== 'string'){
-    this.logger.log('setLocale: Locale should be a string');
-    return;
+    throw new TypeError('LPW.setLocale: locale is not a string');
   }
   this.locale = locale;
+};
+
+/**
+ * Gets pdf link
+ * @param {number} id - property ID
+ * @param {getPDFOptions} options
+ * @see {@link getPDFOptions}
+ * @param {userCallback} userCallback
+ *
+ * @since 1.0.0
+ */
+LPW.prototype.getPDF = function(id, options, userCallback){
+  id = parseInt(id, 10);
+
+  if(typeof userCallback !== 'function'){
+    throw new TypeError('LPW.getPDF: callback is not a function');
+  }
+
+  if(isNaN(id)){
+    throw new TypeError('LPW.getPDF: ID is not a number');
+  }
+
+  var config = {};
+  config.forRent = options.forRent || null;
+  config.locale = options.locale || this.locale;
+
+  pdf.requestPDF(id, config.forRent, config.locale, this.getPDFCallback.bind(this, userCallback));
 };
 
 //----------------------------------------------------------------------------------------
@@ -114,6 +144,20 @@ LPW.prototype.setLocale = function(locale){
 LPW.prototype.defaultCallback = function(userCallback, XMLHttpRequest){
   var data   = this.helper.isSuccessHTTPStatus(XMLHttpRequest.status) ? JSON.parse(XMLHttpRequest.response) : null,
       answer = this.helper.getTransformedResponse(data, XMLHttpRequest);
+  userCallback(answer);
+};
+
+/**
+ * Calls user callback with request response as argument.
+ * Only for getPDF method.
+ * @param {userCallback} userCallback
+ * @param {object} XMLHttpRequest
+ *
+ * @since 1.0.0
+ */
+LPW.prototype.getPDFCallback = function(userCallback, XMLHttpRequest){
+  var data = XMLHttpRequest && this.helper.isSuccessHTTPStatus(XMLHttpRequest.status) ? JSON.parse(XMLHttpRequest.response) : null,
+      answer = this.helper.getTransformedResponse(data, (XMLHttpRequest ? XMLHttpRequest : {status: 408, statusText: 'Request Timeout'}));
   userCallback(answer);
 };
 
@@ -147,6 +191,12 @@ window.LPW = LPW;
  * @property {string} locale - locale
  * @property {boolean} forSale - show property data for sale
  * @property {boolean} forRent - show property data for rent
+ */
+
+/**
+ * @typedef {object} getPDFOptions
+ * @property {string} locale - locale
+ * @property {boolean} forRent - show information for rent if true and for sale if false or not present
  */
 
 /**
