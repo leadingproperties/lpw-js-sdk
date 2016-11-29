@@ -826,6 +826,87 @@
                     </div>
                 </div><!--getPDF-->
 
+                <div class="panel panel-default">
+                    <h3 id="getTotalCounters" class="panel-heading no-margin">getTotalCounters</h3>
+                    <div class="panel-body">
+                        <pre class="prettyprint linenums=1">lpw.getTotalCounters(callback);</pre>
+                        <h3>Parameters</h3>
+                        <table class="table table-bordered mbn">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>Default</th>
+                                <th>Description</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>callback</td>
+                                <td>Function</td>
+                                <td>-</td>
+                                <td>Function called when request is complete. Description is <a href="#get-pdf-callback">below</a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <hr>
+
+                        <div>
+                            <h4 id="getTotalCounters-callback">Callback</h4>
+                            <p>It will receive answer as first argument. Answer is an object with these properties:</p>
+                            <pre class="prettyprint linenums=1">
+{
+    data: {
+        global_counters: {
+            commercial: {Number},
+            for_rent: {Number},
+            for_sale: {Number}
+        }
+    },
+    status: {Number}
+    statusText: {String}
+}</pre>
+                            <table class="table table-bordered mbn">
+                                <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                    <th>Description</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>data</td>
+                                    <td>Object</td>
+                                    <td>
+                                        Payload object, where:
+                                        <ul class="list-unstyled">
+                                            <li><code>global_counters.commercial</code> - total count of commercial properties</li>
+                                            <li><code>global_counters.for_rent</code> - total count of properties for rent</li>
+                                            <li><code>global_counters.for_sale</code> - total count of properties for sale</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>status</td>
+                                    <td>Number</td>
+                                    <td>
+                                        <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/status" target="_blank">XMLHttpRequest.status</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>statusText</td>
+                                    <td>String</td>
+                                    <td>
+                                        <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/statusText" target="_blank">XMLHttpRequest.statusText</a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div><!--getTotalCounters callback-->
+                    </div>
+                </div><!--getTotalCounters-->
+
                 <br>
 
                 <h2>Types</h2>
@@ -1929,6 +2010,12 @@
                             <a href="#get-pdf">getPDF</a>
                             <ul class="nav">
                                 <li><a href="#get-pdf-callback">callback</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#getTotalCounters">getTotalCounters</a>
+                            <ul class="nav">
+                                <li><a href="#getTotalCounters-callback">callback</a></li>
                             </ul>
                         </li>
                         <li><strong>Types</strong></li>
