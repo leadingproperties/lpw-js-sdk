@@ -1,4 +1,5 @@
-/* @version 1.0.0-beta.1 | @license MIT */;(function(window) {
+/* @version 1.0.0 | @license MIT */
+;(function(window) {
 "use strict";
 
 /**
@@ -63,6 +64,27 @@ Connector.prototype.readCurrencies = function(lpwCallback){
  */
 Connector.prototype.readPDF = function(id, forRent, locale, lpwCallback){
   this._defaultRequest(this.apiPath + '/' + locale + '/pdf/' + id + (forRent ? '?for_rent=true' : ''), 'GET', null, lpwCallback);
+};
+
+/**
+ * Sends request to total counters controller
+ * @param {function} lpwCallback
+ *
+ * @since 1.0.0
+ */
+Connector.prototype.readTotalCounters = function(lpwCallback){
+  this._defaultRequest(this.apiPath + '/counters/global', 'GET', null, lpwCallback);
+};
+
+/**
+ * Sends request to one of geographical points controllers
+ * @param {string} endPoint - last part of geographical points controller path
+ * @param {function} lpwCallback
+ *
+ * @since 1.0.0
+ */
+Connector.prototype.readGeoPionts = function(endPoint, lpwCallback){
+  this._defaultRequest(this.apiPath + '/property_objects/' + endPoint, 'GET', null, lpwCallback);
 };
 
 /**
@@ -298,6 +320,57 @@ LPW.prototype.getPDF = function(id, options, userCallback){
   config.locale = options.locale || this.locale;
 
   pdf.requestPDF(id, config.forRent, config.locale, this.getPDFCallback.bind(this, userCallback));
+};
+
+/**
+ * Gets total properties counters
+ * @param {userCallback} userCallback
+ *
+ * @since 1.0.0
+ */
+LPW.prototype.getTotalCounters = function(userCallback){
+  if(typeof userCallback !== 'function'){
+    throw new TypeError('LPW.getPDF: callback is not a function');
+  }
+
+  this.connector.readTotalCounters(
+    this.defaultCallback.bind(this, userCallback)
+  );
+};
+
+/**
+ * Gets geographical points
+ * @param {string} type - points for a property offer type (sale, rent or commercial)
+ * @param {userCallback} userCallback
+ *
+ * @since 1.0.0
+ */
+LPW.prototype.getGeoPoints = function(type, userCallback){
+  if(typeof userCallback !== 'function'){
+    throw new TypeError('LPW.getPDF: callback is not a function');
+  }
+
+  if(type !== 'sale' || type !== 'sale' || type !== 'commercial'){
+    this.logger.log('LPW.getGeoPoints: type is not one of: "sale", "rent" or "commercial". "sale" used by default.')
+  }
+
+  var endPoint;
+  switch (type){
+    case 'rent':
+      endPoint = 'rent_geo_points';
+      break;
+    case 'commercial':
+      endPoint = 'invest_geo_points';
+      break;
+    default:
+      endPoint = 'geo_points';
+      break;
+  }
+
+  this.connector.readGeoPionts(
+    endPoint,
+    this.defaultCallback.bind(this, userCallback)
+  );
 };
 
 //----------------------------------------------------------------------------------------

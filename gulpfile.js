@@ -37,7 +37,7 @@ gulp.task('scripts', ['clean'], function() {
                  params: ["window"],
                  args: ["window"]
                }))
-    .pipe(insert.prepend('/* @version ' + packageData.version +' | @license MIT */'))
+    .pipe(insert.prepend('/* @version ' + packageData.version +' | @license MIT */\n'))
     .pipe(sourcemaps.write("."))
     .pipe(gulp.dest("dist"));
 });
