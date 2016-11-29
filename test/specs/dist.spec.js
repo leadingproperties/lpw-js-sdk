@@ -85,5 +85,22 @@ describe('Build test: LPW', function(){
         done();
       })
     });
+  });
+
+  describe('#getTotalCounters()', function(){
+    it('should exist', function(){
+      should.exist(lpw.getTotalCounters);
+    });
+
+    it('should call user\'s callback with structured answer', function(done){
+      lpw.getTotalCounters(function(answer){
+        answer.data.should.be.an('object');
+        answer.data.should.have.ownProperty('global_counters');
+        answer.data.global_counters.should.have.ownProperty('for_sale');
+        answer.data.global_counters.should.have.ownProperty('for_rent');
+        answer.data.global_counters.should.have.ownProperty('commercial');
+        done();
+      })
+    });
   })
 });

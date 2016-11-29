@@ -63,6 +63,16 @@ Connector.prototype.readPDF = function(id, forRent, locale, lpwCallback){
 };
 
 /**
+ * Sends request to total counters controller
+ * @param {function} lpwCallback
+ *
+ * @since 1.0.0
+ */
+Connector.prototype.readTotalCounters = function(lpwCallback){
+  this._defaultRequest(this.apiPath + '/counters/global', 'GET', null, lpwCallback);
+};
+
+/**
  * Default requester
  * @param {String} url - request url
  * @param {String} method - HTTP ('GET', 'POST', etc.) method

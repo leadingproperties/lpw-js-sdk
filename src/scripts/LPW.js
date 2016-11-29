@@ -131,6 +131,18 @@ LPW.prototype.getPDF = function(id, options, userCallback){
   pdf.requestPDF(id, config.forRent, config.locale, this.getPDFCallback.bind(this, userCallback));
 };
 
+/**
+ * Gets total properties counters
+ * @param {userCallback} userCallback
+ *
+ * @since 1.0.0
+ */
+LPW.prototype.getTotalCounters = function(userCallback){
+  this.connector.readTotalCounters(
+    this.defaultCallback.bind(this, userCallback)
+  );
+};
+
 //----------------------------------------------------------------------------------------
 // Callbacks
 //----------------------------------------------------------------------------------------

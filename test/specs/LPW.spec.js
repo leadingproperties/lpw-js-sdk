@@ -203,4 +203,49 @@ describe('LPW class', function(){
       answer.statusText.should.be.equal('OK');
     });
   });
+
+  describe('#getTotalCounters()', function(){
+    var fakeResponse            = {
+          global_counters: {
+            for_sale: 3734,
+            for_rent: 4,
+            commercial: 32
+          }
+        },
+        fakeResponseStringified = JSON.stringify(fakeResponse);
+
+    beforeEach(function(){
+      lpw = new LPW('etd4xUyDUMsa47sQBwNB');
+      xhr = sinon.useFakeXMLHttpRequest();
+      requests = [];
+      xhr.onCreate = function (xhr) {
+        requests.push(xhr);
+      };
+    });
+
+    afterEach(function(){
+      xhr.restore();
+    });
+
+    it('should exist', function(){
+      should.exist(lpw.getTotalCounters);
+    });
+
+    it('should call userCallback with answer as first argument', function(){
+      var callback = sinon.spy();
+      lpw.getTotalCounters(callback);
+      requests[0].respond(
+        200,
+        {"Content-Type": "application/json"},
+        fakeResponseStringified
+      );
+      callback.calledOnce.should.be.true;
+      var answer = callback.args[0][0];
+      answer.data.should.exist;
+      answer.data.should.be.an('object');
+      answer.data.should.have.ownProperty('global_counters');
+      answer.status.should.be.equal(200);
+      answer.statusText.should.be.equal('OK');
+    });
+  });
 });
