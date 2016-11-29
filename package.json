@@ -1,6 +1,6 @@
 {
   "name": "lpw-js-sdk",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-beta.1",
   "description": "LPW Javascript SDK",
   "main": "index.js",
   "repository": "lpw-js-sdk",
