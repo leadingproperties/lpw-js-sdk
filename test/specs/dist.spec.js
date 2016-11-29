@@ -1,5 +1,8 @@
-describe('Build test', function(){
-  var lpw;
+describe('Build test: LPW', function(){
+  var lpw,
+      propertyId = 70979,
+      propertyCodeRegExp = new RegExp('-' + propertyId);
+
   beforeEach(function(){
     lpw = new LPW('etd4xUyDUMsa47sQBwNB');
   });
@@ -9,27 +12,26 @@ describe('Build test', function(){
       lpw.getProperties.should.exist;
     });
 
-    it('should accept callback and call it with structured data', function(done){
+    it('should call user\'s callback with structured answer', function(done){
       lpw.getProperties({}, function(answer){
         answer.should.be.an('object');
         answer.should.have.property('data');
         answer.should.have.property('status');
         answer.should.have.property('statusText');
         answer.should.have.deep.property('data.property_objects');
+        answer.data.property_objects.length.should.be.above(0);
         done();
       });
     });
   });
 
   describe('#getPropertyById()', function(){
-    var propertyId = 70979;
-
     it('should exist', function(){
       should.exist(lpw.getPropertyById);
     });
 
-    it('should accept callback and call it with structured data', function(done){
-      lpw.getPropertyById(70979, null, function(answer){
+    it('should call user\'s callback with structured answer', function(done){
+      lpw.getPropertyById(propertyId, null, function(answer){
         answer.data.should.exist;
         answer.status.should.exist;
         answer.statusText.should.exist;
@@ -45,12 +47,13 @@ describe('Build test', function(){
       should.exist(lpw.getCurrencies);
     });
 
-    it('should accept callback and call it with structured data', function(done){
+    it('should call user\'s callback with structured answer', function(done){
       lpw.getCurrencies(function(answer){
         answer.data.should.exist;
         answer.status.should.exist;
         answer.statusText.should.exist;
         answer.data.currencies.should.exist;
+        answer.data.currencies.length.should.be.above(0);
         done();
       });
     });
@@ -66,4 +69,21 @@ describe('Build test', function(){
       lpw.locale.should.be.equal('ru');
     });
   });
+
+  describe('#getPDF()', function(){
+    it('should exist', function(){
+      should.exist(lpw.getPDF);
+    });
+
+    it('should call user\'s callback with structured answer', function(done){
+      lpw.getPDF(propertyId, {}, function(answer){
+        answer.data.should.be.an('object');
+        answer.data.should.have.ownProperty('pdf_path');
+        answer.data.pdf_path.should.be.a('string');
+        /\.pdf/.test(answer.data.pdf_path).should.be.true;
+        propertyCodeRegExp.test(answer.data.pdf_path).should.be.true;
+        done();
+      })
+    });
+  })
 });
