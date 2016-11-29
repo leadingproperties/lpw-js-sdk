@@ -184,7 +184,6 @@ describe('Connector class', function(){
       );
       callback.calledOnce.should.be.true;
       callback.args.length.should.be.equal(1);
-      console.log(callback.args[0][0].url);
       /\?for_rent=true/.test(callback.args[0][0].url).should.be.true;
     });
   });
