@@ -1,7 +1,10 @@
 {
   "name": "lpw-js-sdk",
-  "description": "LPW Javascript SDK",
+  "description": "Leadingproperties.com Javascript SDK",
   "main": "dist/sdk.js",
+  "moduleType": [
+    "globals"
+  ],
   "authors": [
     "vadim-p"
   ],
@@ -13,6 +16,7 @@
     "node_modules",
     "bower_components",
     "test",
-    "tests"
+    "tests",
+    "docs"
   ]
 }
