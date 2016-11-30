@@ -110,6 +110,7 @@ describe('Build test: LPW', function(){
     });
 
     it('should call user\'s callback with structured answer', function(done){
+      this.timeout(6000);
       lpw.getGeoPoints('sale', function(answer){
         answer.data.should.be.an('object');
         answer.data.should.have.ownProperty('points');
