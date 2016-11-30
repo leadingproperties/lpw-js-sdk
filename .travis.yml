@@ -14,7 +14,6 @@ before_install:
  - sudo dpkg -i google-chrome*.deb
 
 install:
-  - npm install -g karma
   - npm install
 
 script:
